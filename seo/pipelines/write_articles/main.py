@@ -16,6 +16,7 @@ import datetime
 import urllib.request
 import urllib.error
 from pathlib import Path
+from string import Template
 
 import sys as _sys
 _SEO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -361,7 +362,7 @@ def _build_prompt(topic: dict) -> str:
         else ""
     )
 
-    return load_prompt("user").format(
+    return Template(load_prompt("user")).substitute(
         title=topic["title"],
         keyword=topic["keyword"],
         intent=topic["search_intent"],
