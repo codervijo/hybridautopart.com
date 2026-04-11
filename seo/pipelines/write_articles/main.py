@@ -61,6 +61,8 @@ def get_config():
         "api_url": os.environ.get("API_URL", "https://api.openai.com/v1/chat/completions"),
         "delay_ms": int(os.environ.get("DELAY_MS", "2000")),
         "jitter_ms": int(os.environ.get("JITTER_MS", "1000")),
+        "max_tokens": int(os.environ.get("MAX_TOKENS", "8192")),
+        "extra_ms_per_1k_words": int(os.environ.get("EXTRA_MS_PER_1K_WORDS", "3000")),
         "max_retries": int(os.environ.get("MAX_RETRIES", "3")),
         "timeout": int(os.environ.get("TIMEOUT", "60")),
         "max_consecutive_failures": int(os.environ.get("MAX_CONSECUTIVE_FAILURES", "5")),
@@ -380,6 +382,7 @@ def generate_ai(topic: dict, config: dict) -> str:
             {"role": "user", "content": _build_prompt(topic)},
         ],
         "temperature": 0.7,
+        "max_tokens": config["max_tokens"],
     }).encode()
 
     req = urllib.request.Request(
@@ -652,12 +655,18 @@ def run():
         consecutive_failures = 0
         log(f"SUCCESS: {slug}")
 
-        # Delay after every post
+        # Delay after every post.
+        # In AI mode, add extra time proportional to target word count — longer
+        # articles consume more output tokens, eating more of the TPM budget.
         delay_s = config["delay_ms"] / 1000.0
         jitter_s = random.uniform(0, config["jitter_ms"] / 1000.0)
-        total_delay = delay_s + jitter_s
+        wc_extra_s = (
+            topic["target_word_count"] / 1000.0 * config["extra_ms_per_1k_words"] / 1000.0
+            if config["use_ai"] else 0.0
+        )
+        total_delay = delay_s + jitter_s + wc_extra_s
         if total_delay > 0:
-            log(f"  sleeping {total_delay:.1f}s...")
+            log(f"  sleeping {total_delay:.1f}s (base + wc_extra={wc_extra_s:.1f}s)...")
             time.sleep(total_delay)
 
     state.write_summary(

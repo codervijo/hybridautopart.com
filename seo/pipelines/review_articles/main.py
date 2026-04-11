@@ -62,6 +62,7 @@ def get_config():
         "api_url": os.environ.get("API_URL", "https://api.openai.com/v1/chat/completions"),
         "delay_ms": int(os.environ.get("DELAY_MS", "2000")),
         "jitter_ms": int(os.environ.get("JITTER_MS", "1000")),
+        "max_tokens": int(os.environ.get("MAX_TOKENS", "4096")),
         "max_retries": int(os.environ.get("MAX_RETRIES", "3")),
         "timeout": int(os.environ.get("TIMEOUT", "120")),
         "max_consecutive_failures": int(os.environ.get("MAX_CONSECUTIVE_FAILURES", "5")),
@@ -110,6 +111,7 @@ def review_ai(article: dict, config: dict) -> str:
             {"role": "user", "content": user_prompt},
         ],
         "temperature": 0.4,
+        "max_tokens": config["max_tokens"],
     }).encode()
 
     req = urllib.request.Request(
