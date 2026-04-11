@@ -1,0 +1,50 @@
+{
+  "project": "Hybrid SEO Content Plan",
+  "version": "2.0",
+  "posts": [
+    {
+      "id": 1,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "What is Toyota Hybrid Synergy Drive?",
+      "primary_keyword": "what is toyota hybrid synergy drive",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500-2k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1-15",
+      "slug": "what-is-toyota-hybrid-synergy-drive",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": ["toyota-prius-battery-replacement", "hybrid-inverter-repair"]
+    },
+    {
+      "id": 2,
+      "cluster": "Battery & HV System",
+      "title": "Toyota Prius Battery Replacement Cost Guide",
+      "primary_keyword": "toyota prius battery replacement cost",
+      "search_intent": "Commercial",
+      "estimated_monthly_volume": "1k-5k",
+      "estimated_keyword_difficulty": 28,
+      "priority": "High",
+      "suggested_publish_window": "Days 1-15",
+      "slug": "toyota-prius-battery-replacement-cost",
+      "target_word_count": 1400,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": ["what-is-toyota-hybrid-synergy-drive"]
+    },
+    {
+      "id": 3,
+      "cluster": "General",
+      "title": "How Long Do Hybrid Batteries Last?",
+      "primary_keyword": "how long do hybrid batteries last",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "2k-10k",
+      "estimated_keyword_difficulty": 18,
+      "priority": "Medium",
+      "slug": "how-long-do-hybrid-batteries-last",
+      "target_word_count": 1000,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": []
+    }
+  ]
+}

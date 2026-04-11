@@ -1,0 +1,6 @@
+[project]
+name = "seo-blog-generator"
+version = "0.1.0"
+description = "SEO blog post generator for hybridautopart.com"
+requires-python = ">=3.10"
+dependencies = []

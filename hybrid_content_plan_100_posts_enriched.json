@@ -1,0 +1,2014 @@
+{
+  "project": "Hybrid SEO Content Plan",
+  "version": "2.0",
+  "description": "100-post plan enriched with keyword, intent, estimated volume, keyword difficulty, priority, publishing window, and slug.",
+  "methodology_note": "Keyword volume and KD are Ahrefs-style estimates based on our planning discussion and heuristics, not live Ahrefs data.",
+  "recommended_execution_order": [
+    "Publish High-priority posts first",
+    "Start with comparisons and Toyota/Prius deep dives",
+    "Use 1200+ words, answer-first structure, tables, and FAQs",
+    "Interlink related posts heavily"
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "What is Toyota Hybrid Synergy Drive?",
+      "primary_keyword": "what is toyota hybrid synergy drive",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-toyota-hybrid-synergy-drive",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 2,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "How does Toyota hybrid system work step by step",
+      "primary_keyword": "how does toyota hybrid system work step by step",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "3k\u20138k",
+      "estimated_keyword_difficulty": 20,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-does-toyota-hybrid-system-work-step-by-step",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 3,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Toyota power split device explained simply",
+      "primary_keyword": "toyota power split device explained simply",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20131k",
+      "estimated_keyword_difficulty": 5,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "toyota-power-split-device-explained-simply",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 4,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Why Toyota hybrids don\u2019t need a starter motor",
+      "primary_keyword": "why toyota hybrids dont need a starter motor",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "why-toyota-hybrids-dont-need-a-starter-motor",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 5,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Why Prius has no alternator",
+      "primary_keyword": "why prius has no alternator",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "why-prius-has-no-alternator",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 6,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "What is MG1 and MG2 in Toyota hybrids",
+      "primary_keyword": "what is mg1 and mg2 in toyota hybrids",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20131k",
+      "estimated_keyword_difficulty": 6,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-mg1-and-mg2-in-toyota-hybrids",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 7,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Prius transmission explained (eCVT deep dive)",
+      "primary_keyword": "prius transmission explained",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "prius-transmission-explained",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 8,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Why Prius doesn\u2019t shift gears",
+      "primary_keyword": "why prius doesnt shift gears",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "why-prius-doesnt-shift-gears",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 9,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "How Prius starts without engine cranking",
+      "primary_keyword": "how prius starts without engine cranking",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-prius-starts-without-engine-cranking",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 10,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Toyota hybrid inverter explained",
+      "primary_keyword": "toyota hybrid inverter explained",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "toyota-hybrid-inverter-explained",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 11,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "What does Prius inverter do?",
+      "primary_keyword": "what does prius inverter do",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-does-prius-inverter-do",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 12,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Prius battery cooling system explained",
+      "primary_keyword": "prius battery cooling system explained",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "prius-battery-cooling-system-explained",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 13,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Where is Prius battery located?",
+      "primary_keyword": "where is prius battery located",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "where-is-prius-battery-located",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 14,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Prius battery replacement cost (real data)",
+      "primary_keyword": "prius battery replacement cost",
+      "search_intent": "Buyer",
+      "estimated_monthly_volume": "10k\u201320k",
+      "estimated_keyword_difficulty": 28,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "prius-battery-replacement-cost",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 15,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "How long does Prius battery last?",
+      "primary_keyword": "how long does prius battery last",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-long-does-prius-battery-last",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 16,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Can Prius run without battery?",
+      "primary_keyword": "can prius run without battery",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "1k\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "can-prius-run-without-battery",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 17,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "What happens when Prius battery dies?",
+      "primary_keyword": "what happens when prius battery dies",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-happens-when-prius-battery-dies",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 18,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Prius maintenance cost vs regular car",
+      "primary_keyword": "prius maintenance cost vs regular car",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20133k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "prius-maintenance-cost-vs-regular-car",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 19,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Prius engine vs electric motor roles",
+      "primary_keyword": "prius engine vs electric motor roles",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20133k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "prius-engine-vs-electric-motor-roles",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 20,
+      "cluster": "Toyota / Prius Deep Dive",
+      "title": "Why Toyota hybrids are more reliable",
+      "primary_keyword": "why toyota hybrids are more reliable",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "why-toyota-hybrids-are-more-reliable",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 21,
+      "cluster": "Comparisons",
+      "title": "PHEV vs HEV vs BEV",
+      "primary_keyword": "phev vs hev vs bev",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "2k\u20135k",
+      "estimated_keyword_difficulty": 10,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "phev-vs-hev-vs-bev",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 22,
+      "cluster": "Comparisons",
+      "title": "eCVT vs CVT (simple explanation)",
+      "primary_keyword": "ecvt vs cvt",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "3k\u20137k",
+      "estimated_keyword_difficulty": 12,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "ecvt-vs-cvt",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 23,
+      "cluster": "Comparisons",
+      "title": "Hybrid vs plug-in hybrid cost over 5 years",
+      "primary_keyword": "hybrid vs plug-in hybrid cost over 5 years",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "5k\u201310k",
+      "estimated_keyword_difficulty": 15,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "hybrid-vs-plug-in-hybrid-cost-over-5-years",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 24,
+      "cluster": "Comparisons",
+      "title": "Hybrid vs electric car maintenance",
+      "primary_keyword": "hybrid vs electric car maintenance",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20133k",
+      "estimated_keyword_difficulty": 15,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "hybrid-vs-electric-car-maintenance",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 25,
+      "cluster": "Comparisons",
+      "title": "Toyota hybrid vs Honda hybrid",
+      "primary_keyword": "toyota hybrid vs honda hybrid",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20133k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "toyota-hybrid-vs-honda-hybrid",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 26,
+      "cluster": "Comparisons",
+      "title": "Series vs parallel hybrid",
+      "primary_keyword": "series vs parallel hybrid",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20133k",
+      "estimated_keyword_difficulty": 8,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "series-vs-parallel-hybrid",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 27,
+      "cluster": "Comparisons",
+      "title": "Mild hybrid vs full hybrid vs plug-in hybrid",
+      "primary_keyword": "mild hybrid vs full hybrid vs plug-in hybrid",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20135k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "mild-hybrid-vs-full-hybrid-vs-plug-in-hybrid",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 28,
+      "cluster": "Comparisons",
+      "title": "Hybrid vs gas car reliability",
+      "primary_keyword": "hybrid vs gas car reliability",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "20k+",
+      "estimated_keyword_difficulty": 40,
+      "priority": "Low",
+      "suggested_publish_window": "Month 2+",
+      "slug": "hybrid-vs-gas-car-reliability",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 29,
+      "cluster": "Comparisons",
+      "title": "Hybrid vs diesel cost comparison",
+      "primary_keyword": "hybrid vs diesel cost comparison",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20135k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "hybrid-vs-diesel-cost-comparison",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 30,
+      "cluster": "Comparisons",
+      "title": "Hybrid vs EV in cold weather",
+      "primary_keyword": "hybrid vs ev in cold weather",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20135k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "hybrid-vs-ev-in-cold-weather",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 31,
+      "cluster": "Comparisons",
+      "title": "Plug-in hybrid vs EV charging cost",
+      "primary_keyword": "plug-in hybrid vs ev charging cost",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "5k\u201310k",
+      "estimated_keyword_difficulty": 22,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "plug-in-hybrid-vs-ev-charging-cost",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 32,
+      "cluster": "Comparisons",
+      "title": "eCVT vs automatic transmission",
+      "primary_keyword": "ecvt vs automatic transmission",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20135k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "ecvt-vs-automatic-transmission",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 33,
+      "cluster": "Comparisons",
+      "title": "Prius vs Corolla Hybrid",
+      "primary_keyword": "prius vs corolla hybrid",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20133k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "prius-vs-corolla-hybrid",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 34,
+      "cluster": "Comparisons",
+      "title": "Prius vs Camry Hybrid",
+      "primary_keyword": "prius vs camry hybrid",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20133k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "prius-vs-camry-hybrid",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 35,
+      "cluster": "Comparisons",
+      "title": "Hybrid SUV vs gas SUV cost",
+      "primary_keyword": "hybrid suv vs gas suv cost",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "5k\u201310k",
+      "estimated_keyword_difficulty": 28,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "hybrid-suv-vs-gas-suv-cost",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 36,
+      "cluster": "Comparisons",
+      "title": "Hybrid vs EV battery lifespan",
+      "primary_keyword": "hybrid vs ev battery lifespan",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20135k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "hybrid-vs-ev-battery-lifespan",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-hybrid-battery-charges",
+        "what-is-battery-management-system-bms",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 37,
+      "cluster": "Comparisons",
+      "title": "Hybrid vs EV resale value",
+      "primary_keyword": "hybrid vs ev resale value",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20135k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "hybrid-vs-ev-resale-value",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 38,
+      "cluster": "Comparisons",
+      "title": "Regenerative braking vs engine braking",
+      "primary_keyword": "regenerative braking vs engine braking",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20135k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "regenerative-braking-vs-engine-braking",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 39,
+      "cluster": "Comparisons",
+      "title": "Hybrid AWD vs mechanical AWD",
+      "primary_keyword": "hybrid awd vs mechanical awd",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20135k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "hybrid-awd-vs-mechanical-awd",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 40,
+      "cluster": "Comparisons",
+      "title": "Hybrid vs gas MPG comparison",
+      "primary_keyword": "hybrid vs gas mpg comparison",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20135k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "hybrid-vs-gas-mpg-comparison",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 41,
+      "cluster": "Hybrid Components",
+      "title": "What is regenerative braking?",
+      "primary_keyword": "what is regenerative braking",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "5k\u201310k",
+      "estimated_keyword_difficulty": 18,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-regenerative-braking",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 42,
+      "cluster": "Hybrid Components",
+      "title": "How regenerative braking works step by step",
+      "primary_keyword": "how regenerative braking works step by step",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-regenerative-braking-works-step-by-step",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 43,
+      "cluster": "Hybrid Components",
+      "title": "What is hybrid battery made of?",
+      "primary_keyword": "what is hybrid battery made of",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-hybrid-battery-made-of",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-hybrid-battery-charges",
+        "what-is-battery-management-system-bms",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 44,
+      "cluster": "Hybrid Components",
+      "title": "How hybrid battery charges",
+      "primary_keyword": "how hybrid battery charges",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-hybrid-battery-charges",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-hybrid-battery-charges",
+        "what-is-battery-management-system-bms",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 45,
+      "cluster": "Hybrid Components",
+      "title": "What is inverter in hybrid car?",
+      "primary_keyword": "what is inverter in hybrid car",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-inverter-in-hybrid-car",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 46,
+      "cluster": "Hybrid Components",
+      "title": "What is DC-DC converter in hybrid",
+      "primary_keyword": "what is dc-dc converter in hybrid",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-dc-dc-converter-in-hybrid",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 47,
+      "cluster": "Hybrid Components",
+      "title": "What is electric motor in hybrid car?",
+      "primary_keyword": "what is electric motor in hybrid car",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-electric-motor-in-hybrid-car",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 48,
+      "cluster": "Hybrid Components",
+      "title": "How hybrid cooling system works",
+      "primary_keyword": "how hybrid cooling system works",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-hybrid-cooling-system-works",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 49,
+      "cluster": "Hybrid Components",
+      "title": "What is battery management system (BMS)?",
+      "primary_keyword": "what is battery management system",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-battery-management-system",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-hybrid-battery-charges",
+        "what-is-battery-management-system-bms",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 50,
+      "cluster": "Hybrid Components",
+      "title": "What is hybrid control unit?",
+      "primary_keyword": "what is hybrid control unit",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-hybrid-control-unit",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 51,
+      "cluster": "Hybrid Components",
+      "title": "What is torque split in hybrid cars?",
+      "primary_keyword": "what is torque split in hybrid cars",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-torque-split-in-hybrid-cars",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 52,
+      "cluster": "Hybrid Components",
+      "title": "What is power split device in simple terms",
+      "primary_keyword": "what is power split device in simple terms",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "300\u20131k",
+      "estimated_keyword_difficulty": 5,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-power-split-device-in-simple-terms",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 53,
+      "cluster": "Hybrid Components",
+      "title": "What is electric-only mode in hybrids",
+      "primary_keyword": "what is electric-only mode in hybrids",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-electric-only-mode-in-hybrids",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 54,
+      "cluster": "Hybrid Components",
+      "title": "What is hybrid idle stop system",
+      "primary_keyword": "what is hybrid idle stop system",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-hybrid-idle-stop-system",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 55,
+      "cluster": "Hybrid Components",
+      "title": "Why hybrids don\u2019t use traditional transmission",
+      "primary_keyword": "why hybrids dont use traditional transmission",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "why-hybrids-dont-use-traditional-transmission",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 56,
+      "cluster": "Hybrid Components",
+      "title": "What is planetary gear system in Prius",
+      "primary_keyword": "what is planetary gear system in prius",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "300\u20131k",
+      "estimated_keyword_difficulty": 7,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-planetary-gear-system-in-prius",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 57,
+      "cluster": "Hybrid Components",
+      "title": "What is hybrid drive cycle",
+      "primary_keyword": "what is hybrid drive cycle",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-hybrid-drive-cycle",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 58,
+      "cluster": "Hybrid Components",
+      "title": "What sensors do hybrid cars use",
+      "primary_keyword": "what sensors do hybrid cars use",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-sensors-do-hybrid-cars-use",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 59,
+      "cluster": "Hybrid Components",
+      "title": "What is hybrid battery voltage",
+      "primary_keyword": "what is hybrid battery voltage",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-is-hybrid-battery-voltage",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-hybrid-battery-charges",
+        "what-is-battery-management-system-bms",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 60,
+      "cluster": "Hybrid Components",
+      "title": "How hybrid system switches between modes",
+      "primary_keyword": "how hybrid system switches between modes",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 11,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-hybrid-system-switches-between-modes",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 61,
+      "cluster": "How It Works",
+      "title": "How do hybrid cars work for beginners",
+      "primary_keyword": "how do hybrid cars work for beginners",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-do-hybrid-cars-work-for-beginners",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 62,
+      "cluster": "How It Works",
+      "title": "How does a Prius charge its battery",
+      "primary_keyword": "how does a prius charge its battery",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-does-a-prius-charge-its-battery",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 63,
+      "cluster": "How It Works",
+      "title": "How does a hybrid car save fuel",
+      "primary_keyword": "how does a hybrid car save fuel",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-does-a-hybrid-car-save-fuel",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 64,
+      "cluster": "How It Works",
+      "title": "How does regenerative braking charge battery",
+      "primary_keyword": "how does regenerative braking charge battery",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-does-regenerative-braking-charge-battery",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-hybrid-battery-charges",
+        "what-is-battery-management-system-bms",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 65,
+      "cluster": "How It Works",
+      "title": "How does hybrid engine turn on/off",
+      "primary_keyword": "how does hybrid engine turn onoff",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-does-hybrid-engine-turn-onoff",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 66,
+      "cluster": "How It Works",
+      "title": "How does electric motor assist engine",
+      "primary_keyword": "how does electric motor assist engine",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-does-electric-motor-assist-engine",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 67,
+      "cluster": "How It Works",
+      "title": "How do hybrids work in traffic",
+      "primary_keyword": "how do hybrids work in traffic",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-do-hybrids-work-in-traffic",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 68,
+      "cluster": "How It Works",
+      "title": "How do hybrids work on highway",
+      "primary_keyword": "how do hybrids work on highway",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-do-hybrids-work-on-highway",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 69,
+      "cluster": "How It Works",
+      "title": "How do hybrids start moving from stop",
+      "primary_keyword": "how do hybrids start moving from stop",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-do-hybrids-start-moving-from-stop",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 70,
+      "cluster": "How It Works",
+      "title": "How does EV mode work in Prius",
+      "primary_keyword": "how does ev mode work in prius",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-does-ev-mode-work-in-prius",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 71,
+      "cluster": "How It Works",
+      "title": "How does hybrid system decide power source",
+      "primary_keyword": "how does hybrid system decide power source",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-does-hybrid-system-decide-power-source",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 72,
+      "cluster": "How It Works",
+      "title": "How does hybrid battery recharge while driving",
+      "primary_keyword": "how does hybrid battery recharge while driving",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-does-hybrid-battery-recharge-while-driving",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-hybrid-battery-charges",
+        "what-is-battery-management-system-bms",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 73,
+      "cluster": "How It Works",
+      "title": "How does hybrid AC system work",
+      "primary_keyword": "how does hybrid ac system work",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-does-hybrid-ac-system-work",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 74,
+      "cluster": "How It Works",
+      "title": "How do hybrids reduce emissions",
+      "primary_keyword": "how do hybrids reduce emissions",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-do-hybrids-reduce-emissions",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 75,
+      "cluster": "How It Works",
+      "title": "How does hybrid system improve MPG",
+      "primary_keyword": "how does hybrid system improve mpg",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "how-does-hybrid-system-improve-mpg",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 76,
+      "cluster": "Buyer Intent",
+      "title": "Are hybrids worth it in 2026?",
+      "primary_keyword": "are hybrids worth it in 2026",
+      "search_intent": "Buyer",
+      "estimated_monthly_volume": "10k\u201330k",
+      "estimated_keyword_difficulty": 35,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "are-hybrids-worth-it-in-2026",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 77,
+      "cluster": "Buyer Intent",
+      "title": "Should I buy hybrid or electric?",
+      "primary_keyword": "should i buy hybrid or electric",
+      "search_intent": "Buyer",
+      "estimated_monthly_volume": "8k\u201320k",
+      "estimated_keyword_difficulty": 30,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "should-i-buy-hybrid-or-electric",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 78,
+      "cluster": "Buyer Intent",
+      "title": "Is Prius worth buying used?",
+      "primary_keyword": "is prius worth buying used",
+      "search_intent": "Buyer",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "is-prius-worth-buying-used",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 79,
+      "cluster": "Buyer Intent",
+      "title": "What mileage is too high for Prius?",
+      "primary_keyword": "what mileage is too high for prius",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-mileage-is-too-high-for-prius",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 80,
+      "cluster": "Buyer Intent",
+      "title": "Are hybrid batteries expensive to replace?",
+      "primary_keyword": "are hybrid batteries expensive to replace",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "are-hybrid-batteries-expensive-to-replace",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 81,
+      "cluster": "Buyer Intent",
+      "title": "Best used hybrid cars under $15k",
+      "primary_keyword": "best used hybrid cars under 15k",
+      "search_intent": "Buyer",
+      "estimated_monthly_volume": "2k\u20138k",
+      "estimated_keyword_difficulty": 24,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "best-used-hybrid-cars-under-15k",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 82,
+      "cluster": "Buyer Intent",
+      "title": "Best hybrid cars for commuting",
+      "primary_keyword": "best hybrid cars for commuting",
+      "search_intent": "Buyer",
+      "estimated_monthly_volume": "20k+",
+      "estimated_keyword_difficulty": 40,
+      "priority": "Low",
+      "suggested_publish_window": "Month 2+",
+      "slug": "best-hybrid-cars-for-commuting",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 83,
+      "cluster": "Buyer Intent",
+      "title": "Hybrid car pros and cons (real data)",
+      "primary_keyword": "hybrid car pros and cons",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "10k+",
+      "estimated_keyword_difficulty": 32,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "hybrid-car-pros-and-cons",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 84,
+      "cluster": "Buyer Intent",
+      "title": "Is hybrid good for long distance driving?",
+      "primary_keyword": "is hybrid good for long distance driving",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "is-hybrid-good-for-long-distance-driving",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 85,
+      "cluster": "Buyer Intent",
+      "title": "Are hybrids good for short trips?",
+      "primary_keyword": "are hybrids good for short trips",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "800\u20133k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "are-hybrids-good-for-short-trips",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 86,
+      "cluster": "Buyer Intent",
+      "title": "Hybrid car maintenance checklist",
+      "primary_keyword": "hybrid car maintenance checklist",
+      "search_intent": "Buyer",
+      "estimated_monthly_volume": "5k\u201310k",
+      "estimated_keyword_difficulty": 27,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "hybrid-car-maintenance-checklist",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 87,
+      "cluster": "Buyer Intent",
+      "title": "What to check before buying used Prius",
+      "primary_keyword": "what to check before buying used prius",
+      "search_intent": "Buyer",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-to-check-before-buying-used-prius",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 88,
+      "cluster": "Buyer Intent",
+      "title": "Hybrid car insurance cost vs gas",
+      "primary_keyword": "hybrid car insurance cost vs gas",
+      "search_intent": "Comparison",
+      "estimated_monthly_volume": "1k\u20135k",
+      "estimated_keyword_difficulty": 16,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "hybrid-car-insurance-cost-vs-gas",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "what-is-toyota-hybrid-synergy-drive",
+        "what-is-regenerative-braking",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 89,
+      "cluster": "Buyer Intent",
+      "title": "Do hybrids save money long term?",
+      "primary_keyword": "do hybrids save money long term",
+      "search_intent": "Buyer",
+      "estimated_monthly_volume": "2k\u20138k",
+      "estimated_keyword_difficulty": 24,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "do-hybrids-save-money-long-term",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 90,
+      "cluster": "Buyer Intent",
+      "title": "Hybrid resale value explained",
+      "primary_keyword": "hybrid resale value explained",
+      "search_intent": "Buyer",
+      "estimated_monthly_volume": "3k\u20136k",
+      "estimated_keyword_difficulty": 20,
+      "priority": "Medium",
+      "suggested_publish_window": "Days 16\u201330",
+      "slug": "hybrid-resale-value-explained",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 91,
+      "cluster": "Long-tail / FAQ",
+      "title": "Why does Prius engine turn on randomly?",
+      "primary_keyword": "why does prius engine turn on randomly",
+      "search_intent": "Problem",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 10,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "why-does-prius-engine-turn-on-randomly",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 92,
+      "cluster": "Long-tail / FAQ",
+      "title": "Why is my Prius battery draining fast?",
+      "primary_keyword": "why is my prius battery draining fast",
+      "search_intent": "Problem",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 10,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "why-is-my-prius-battery-draining-fast",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 93,
+      "cluster": "Long-tail / FAQ",
+      "title": "Why is Prius so fuel efficient?",
+      "primary_keyword": "why is prius so fuel efficient",
+      "search_intent": "Informational",
+      "estimated_monthly_volume": "1k\u20132k",
+      "estimated_keyword_difficulty": 10,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "why-is-prius-so-fuel-efficient",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 94,
+      "cluster": "Long-tail / FAQ",
+      "title": "Can hybrid run out of battery?",
+      "primary_keyword": "can hybrid run out of battery",
+      "search_intent": "Problem",
+      "estimated_monthly_volume": "300\u20131k",
+      "estimated_keyword_difficulty": 10,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "can-hybrid-run-out-of-battery",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-hybrid-battery-charges",
+        "what-is-battery-management-system-bms",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 95,
+      "cluster": "Long-tail / FAQ",
+      "title": "Can you jump start a Prius?",
+      "primary_keyword": "can you jump start a prius",
+      "search_intent": "Problem",
+      "estimated_monthly_volume": "500\u20132k",
+      "estimated_keyword_difficulty": 10,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "can-you-jump-start-a-prius",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-does-toyota-hybrid-system-work-step-by-step",
+        "toyota-power-split-device-explained-simply",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 96,
+      "cluster": "Long-tail / FAQ",
+      "title": "What happens if hybrid battery overheats?",
+      "primary_keyword": "what happens if hybrid battery overheats",
+      "search_intent": "Problem",
+      "estimated_monthly_volume": "300\u20131k",
+      "estimated_keyword_difficulty": 14,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "what-happens-if-hybrid-battery-overheats",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "how-hybrid-battery-charges",
+        "what-is-battery-management-system-bms",
+        "how-long-does-prius-battery-last"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 97,
+      "cluster": "Long-tail / FAQ",
+      "title": "Do hybrids need oil changes?",
+      "primary_keyword": "do hybrids need oil changes",
+      "search_intent": "Problem",
+      "estimated_monthly_volume": "300\u20131k",
+      "estimated_keyword_difficulty": 10,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "do-hybrids-need-oil-changes",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 98,
+      "cluster": "Long-tail / FAQ",
+      "title": "Do hybrids have transmission fluid?",
+      "primary_keyword": "do hybrids have transmission fluid",
+      "search_intent": "Problem",
+      "estimated_monthly_volume": "300\u20131k",
+      "estimated_keyword_difficulty": 10,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "do-hybrids-have-transmission-fluid",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 99,
+      "cluster": "Long-tail / FAQ",
+      "title": "Can hybrids drive in EV mode only?",
+      "primary_keyword": "can hybrids drive in ev mode only",
+      "search_intent": "Problem",
+      "estimated_monthly_volume": "300\u20131k",
+      "estimated_keyword_difficulty": 10,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "can-hybrids-drive-in-ev-mode-only",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    },
+    {
+      "id": 100,
+      "cluster": "Long-tail / FAQ",
+      "title": "Why do hybrids last longer than regular cars?",
+      "primary_keyword": "why do hybrids last longer than regular cars",
+      "search_intent": "Problem",
+      "estimated_monthly_volume": "300\u20131k",
+      "estimated_keyword_difficulty": 10,
+      "priority": "High",
+      "suggested_publish_window": "Days 1\u201315",
+      "slug": "why-do-hybrids-last-longer-than-regular-cars",
+      "target_word_count": 1200,
+      "aeo_snippet_target": true,
+      "suggested_internal_links": [
+        "toyota-power-split-device-explained-simply",
+        "ecvt-vs-cvt",
+        "how-do-hybrid-cars-work-for-beginners"
+      ],
+      "notes": "Ahrefs-style estimate from our planning; not from a live Ahrefs export."
+    }
+  ]
+}

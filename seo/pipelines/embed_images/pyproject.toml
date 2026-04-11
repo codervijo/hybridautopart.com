@@ -1,0 +1,6 @@
+[project]
+name = "seo-embed-images"
+version = "0.1.0"
+description = "SEO image embedder for hybridautopart.com — inserts existing images into Markdown posts"
+requires-python = ">=3.10"
+dependencies = []

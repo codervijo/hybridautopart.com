@@ -1,0 +1,13 @@
+# Pipeline-generated artifacts — never commit input staging or output dirs
+output/
+input/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# Env files with secrets
+*.env
+!*.env.example

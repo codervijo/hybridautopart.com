@@ -1,0 +1,64 @@
+Review the following Markdown blog post about hybrid vehicles. Perform all tasks below and return your response in the exact output format specified.
+
+---
+
+${article_content}
+
+---
+
+## Tasks
+
+### 1. SEO & AEO Review
+Check if the article:
+- Has a clear answer-first structure
+- Includes a strong 40–60 word snippet answer
+- Matches the primary keyword intent
+
+Identify missing opportunities for:
+- Featured snippets
+- People Also Ask coverage
+
+### 2. Content Quality Review
+Verify:
+- Technical accuracy (hybrid systems, batteries, costs)
+- Clarity for beginners
+
+Flag:
+- Vague statements
+- Repetition
+- Overly generic content
+
+### 3. Structure Review
+Ensure:
+- Logical H2 sections
+- Smooth flow
+- Strong introduction and conclusion
+
+Suggest improvements if weak.
+
+### 4. SEO Improvements
+Suggest:
+- Better title (if needed)
+- Additional H2 sections
+- Missing FAQs (add 2–3 if needed)
+- Internal linking opportunities
+
+---
+
+## Output Format
+
+### ✅ Summary
+- **Overall quality score:** X/10
+- **SEO readiness:** Good / Needs Improvement
+
+### 🔧 Issues Found
+- (bullet list of specific problems)
+
+### ✍️ Improvements
+- (specific actionable suggestions)
+
+### 🔁 Improved Sections
+Rewrite the following if weak:
+- Quick answer (40–60 words)
+- Intro paragraph
+- 1–2 key sections that most need improvement

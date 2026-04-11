@@ -1,0 +1,6 @@
+[project]
+name = "seo-image-generator"
+version = "0.1.0"
+description = "SEO image generator for hybridautopart.com — processes Markdown posts and embeds images"
+requires-python = ">=3.10"
+dependencies = []

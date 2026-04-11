@@ -1,0 +1,37 @@
+# ─── SEO image embedder overrides ────────────────────────────────────────────
+
+export CONTAINER_NAME := seo-embed-images
+
+# No web server needed
+export HOST_PORT      :=
+export CONTAINER_PORT :=
+
+ENV_FILE   ?= embed.env
+INPUT_DIR  ?= input
+OUTPUT_DIR ?= output/posts
+
+ifneq ($(wildcard $(ENV_FILE)),)
+  include $(ENV_FILE)
+  export
+endif
+
+export INPUT_DIR  := $(INPUT_DIR)
+export OUTPUT_DIR := $(OUTPUT_DIR)
+
+# No external deps — stdlib only
+deps:
+	@echo "No dependencies to install (stdlib only)"
+
+run:
+	$(PYTHON) main.py
+
+# Force reprocessing of all posts (keeps images, clears manifests)
+clean-manifests:
+	find $(OUTPUT_DIR) -name manifest.json -delete 2>/dev/null || true
+	@echo "Cleared all manifests"
+
+clean:
+	rm -rf $(OUTPUT_DIR)
+	@echo "Cleaned $(OUTPUT_DIR)/"
+
+.PHONY: run deps clean clean-manifests

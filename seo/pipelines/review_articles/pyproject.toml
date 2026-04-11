@@ -1,0 +1,6 @@
+[project]
+name = "seo-blog-reviewer"
+version = "0.1.0"
+description = "SEO blog post reviewer (second AI pass) for hybridautopart.com"
+requires-python = ">=3.10"
+dependencies = []

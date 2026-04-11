@@ -1,0 +1,40 @@
+# ─── SEO blog reviewer overrides ──────────────────────────────────────────────
+
+export CONTAINER_NAME := seo-blog-reviewer
+
+# No web server needed
+export HOST_PORT      :=
+export CONTAINER_PORT :=
+
+ENV_FILE   ?= review.env
+INPUT_DIR  ?= input
+OUTPUT_DIR ?= output
+
+ifneq ($(wildcard $(ENV_FILE)),)
+  include $(ENV_FILE)
+  export
+endif
+
+export INPUT_DIR  := $(INPUT_DIR)
+export OUTPUT_DIR := $(OUTPUT_DIR)
+
+# No external deps — stdlib only
+deps:
+	@echo "No dependencies to install (stdlib only)"
+
+run:
+	@if [ -z "$(API_KEY)" ] || [ "$(API_KEY)" = "your_key_here" ]; then \
+		echo "ERROR: API_KEY is not set in $(ENV_FILE)"; exit 1; \
+	fi
+	$(PYTHON) main.py
+
+.PHONY: clean clean-state
+
+clean:
+	rm -rf $(OUTPUT_DIR)
+	@echo "Cleaned $(OUTPUT_DIR)/"
+
+# Force all articles to re-review on next run
+clean-state:
+	rm -rf $(OUTPUT_DIR)/run_state
+	@echo "Cleared run state"

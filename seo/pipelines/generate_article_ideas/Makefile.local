@@ -1,0 +1,40 @@
+# ─── SEO idea generator overrides ────────────────────────────────────────────
+
+export CONTAINER_NAME := seo-idea-generator
+
+# No web server needed
+export HOST_PORT      :=
+export CONTAINER_PORT :=
+
+ENV_FILE   ?= ideas.env
+INPUT_DIR  ?= input
+OUTPUT_DIR ?= output
+
+ifneq ($(wildcard $(ENV_FILE)),)
+  include $(ENV_FILE)
+  export
+endif
+
+export INPUT_DIR  := $(INPUT_DIR)
+export OUTPUT_DIR := $(OUTPUT_DIR)
+
+# No external deps — stdlib only
+deps:
+	@echo "No dependencies to install (stdlib only)"
+
+run:
+	$(PYTHON) main.py
+
+# Run with autocomplete disabled (pattern mode only — faster, no network calls)
+run-patterns:
+	USE_AUTOCOMPLETE=false $(PYTHON) main.py
+
+# Run with patterns disabled (autocomplete only)
+run-autocomplete:
+	USE_PATTERNS=false $(PYTHON) main.py
+
+clean:
+	rm -rf $(OUTPUT_DIR)
+	@echo "Cleaned $(OUTPUT_DIR)/"
+
+.PHONY: run run-patterns run-autocomplete deps clean

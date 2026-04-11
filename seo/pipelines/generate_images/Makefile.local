@@ -1,0 +1,52 @@
+# ─── SEO image generator overrides ───────────────────────────────────────────
+
+export CONTAINER_NAME := seo-image-generator
+
+# No web server needed
+export HOST_PORT      :=
+export CONTAINER_PORT :=
+
+ENV_FILE   ?= images.env
+INPUT_DIR  ?= input
+OUTPUT_DIR ?= output/posts
+
+ifneq ($(wildcard $(ENV_FILE)),)
+  include $(ENV_FILE)
+  export
+endif
+
+export INPUT_DIR  := $(INPUT_DIR)
+export OUTPUT_DIR := $(OUTPUT_DIR)
+
+# No external deps — stdlib only
+deps:
+	@echo "No dependencies to install (stdlib only)"
+
+# Default: placeholder mode (no API calls)
+run:
+	USE_IMAGE_AI=false $(PYTHON) main.py
+
+# Run with real image generation (requires IMAGE_API_KEY in images.env)
+run-ai:
+	@if [ -z "$(IMAGE_API_KEY)" ] || [ "$(IMAGE_API_KEY)" = "your_key_here" ]; then \
+		echo "ERROR: IMAGE_API_KEY is not set in $(ENV_FILE)"; exit 1; \
+	fi
+	USE_IMAGE_AI=true $(PYTHON) main.py
+
+# Reset output so all posts are reprocessed from scratch
+clean:
+	rm -rf $(OUTPUT_DIR)
+	@echo "Cleaned $(OUTPUT_DIR)/"
+
+# Reset only manifests — forces re-embedding but keeps existing images
+clean-manifests:
+	find $(OUTPUT_DIR) -name manifest.json -delete
+	@echo "Cleared all manifests (images preserved)"
+
+# Reset only generated images — keeps manifests and article.md files
+clean-images:
+	find $(OUTPUT_DIR) -path "*/images/*.webp" -delete
+	find $(OUTPUT_DIR) -name manifest.json -delete
+	@echo "Cleared images and manifests"
+
+.PHONY: run run-ai deps clean clean-manifests clean-images
