@@ -1,0 +1,10 @@
+Generate ${ideas_per_seed} article ideas for each seed keyword below.
+
+Rules:
+- Cover a range of search intents across the full set (not all Informational).
+- Assign each idea to a named cluster. Multiple ideas can share a cluster.
+- For suggested_internal_links, use only slugs of other ideas in this output.
+- Prioritise High for keywords with clear buyer or diagnostic intent.
+
+Seed keywords:
+${seeds}
