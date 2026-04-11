@@ -1,0 +1,6 @@
+[project]
+name = "seo-article-reviser"
+version = "0.1.0"
+description = "SEO article reviser for hybridautopart.com"
+requires-python = ">=3.10"
+dependencies = []

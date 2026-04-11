@@ -1,0 +1,15 @@
+Below is a blog post and its editorial review.
+
+Apply ONLY the rewrites listed under the "🔁 Improved Sections" heading in the review.
+Keep all other sections exactly as they appear in the original article.
+Return the complete revised article in Markdown. No commentary, no preamble.
+
+## Original Article
+
+${original_article}
+
+---
+
+## Review
+
+${review}
