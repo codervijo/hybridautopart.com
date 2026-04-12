@@ -427,8 +427,10 @@ def run():
             )
         except urllib.error.HTTPError as e:
             if e.code in (401, 403):
-                log(f"  ERROR: HTTP {e.code} — authentication failed.")
-                log("  Check that API_KEY is correct and has access to the model.")
+                log(f"  ERROR: HTTP {e.code} — API key rejected.")
+                log("  This usually means the key is invalid, expired, or revoked.")
+                log("  Get or rotate your key at: https://platform.openai.com/api-keys")
+                log("  Then update API_KEY in blogs.env or your environment.")
                 sys.exit(1)
             code = error_code_for(e)
             log(f"  FAILED [{code}]: {slug}")

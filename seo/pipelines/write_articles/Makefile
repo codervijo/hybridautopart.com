@@ -13,13 +13,7 @@ export INPUT_JSON := $(INPUT)
 .DEFAULT_GOAL := help
 
 run:
-	USE_AI=false $(PYTHON) main.py
-
-run-ai:
-	@if [ -z "$(API_KEY)" ] || [ "$(API_KEY)" = "your_key_here" ]; then \
-		echo "ERROR: API_KEY is not set in $(ENV_FILE)"; exit 1; \
-	fi
-	USE_AI=true $(PYTHON) main.py
+	$(PYTHON) main.py
 
 clean-output: clean
 
@@ -29,12 +23,11 @@ clean-state:
 
 help:
 	@echo "write_articles"
-	@echo "  run          — generate articles (template mode, no API)"
-	@echo "  run-ai       — generate articles via AI API"
+	@echo "  run          — generate articles via AI API (API_KEY required)"
 	@echo "  clean        — remove output/"
 	@echo "  clean-state  — reset run state (re-run all on next run)"
 
-.PHONY: help run run-ai clean-output clean-state
+.PHONY: help run clean-output clean-state
 
 else
 include ../../Makefile.pipeline
