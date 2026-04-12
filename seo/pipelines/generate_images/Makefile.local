@@ -1,10 +1,4 @@
-# ─── SEO image generator overrides ───────────────────────────────────────────
-
-export CONTAINER_NAME := seo-image-generator
-
-# No web server needed
-export HOST_PORT      :=
-export CONTAINER_PORT :=
+# ─── SEO image generator ─────────────────────────────────────────────────────
 
 ENV_FILE   ?= images.env
 INPUT_DIR  ?= input
@@ -49,4 +43,12 @@ clean-images:
 	find $(OUTPUT_DIR) -name manifest.json -delete
 	@echo "Cleared images and manifests"
 
-.PHONY: run run-ai deps clean clean-manifests clean-images
+help:
+	@echo "generate_images"
+	@echo "  run              — generate placeholder SVG images"
+	@echo "  run-ai           — generate real images via AI API (IMAGE_API_KEY required)"
+	@echo "  clean            — remove output/"
+	@echo "  clean-manifests  — reset manifests only (keeps images)"
+	@echo "  clean-images     — remove images and manifests"
+
+.PHONY: help deps run run-ai clean clean-manifests clean-images

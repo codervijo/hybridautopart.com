@@ -1,10 +1,4 @@
-# ─── SEO blog reviewer overrides ──────────────────────────────────────────────
-
-export CONTAINER_NAME := seo-blog-reviewer
-
-# No web server needed
-export HOST_PORT      :=
-export CONTAINER_PORT :=
+# ─── SEO blog reviewer ────────────────────────────────────────────────────────
 
 ENV_FILE   ?= review.env
 INPUT_DIR  ?= input
@@ -28,7 +22,13 @@ run:
 	fi
 	$(PYTHON) main.py
 
-.PHONY: clean clean-state
+help:
+	@echo "review_articles"
+	@echo "  run          — review articles via AI API (API_KEY required)"
+	@echo "  clean        — remove output/"
+	@echo "  clean-state  — reset run state (re-review all on next run)"
+
+.PHONY: help deps run clean clean-state
 
 clean:
 	rm -rf $(OUTPUT_DIR)

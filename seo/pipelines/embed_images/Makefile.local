@@ -1,10 +1,4 @@
-# ─── SEO image embedder overrides ────────────────────────────────────────────
-
-export CONTAINER_NAME := seo-embed-images
-
-# No web server needed
-export HOST_PORT      :=
-export CONTAINER_PORT :=
+# ─── SEO image embedder ──────────────────────────────────────────────────────
 
 ENV_FILE   ?= embed.env
 INPUT_DIR  ?= input
@@ -34,4 +28,10 @@ clean:
 	rm -rf $(OUTPUT_DIR)
 	@echo "Cleaned $(OUTPUT_DIR)/"
 
-.PHONY: run deps clean clean-manifests
+help:
+	@echo "embed_images"
+	@echo "  run              — embed images into article Markdown"
+	@echo "  clean            — remove output/"
+	@echo "  clean-manifests  — reset manifests (force re-embed on next run)"
+
+.PHONY: help deps run clean clean-manifests

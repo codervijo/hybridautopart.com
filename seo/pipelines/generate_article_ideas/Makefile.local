@@ -1,10 +1,4 @@
-# ─── SEO idea generator overrides ────────────────────────────────────────────
-
-export CONTAINER_NAME := seo-idea-generator
-
-# No web server needed
-export HOST_PORT      :=
-export CONTAINER_PORT :=
+# ─── SEO idea generator ───────────────────────────────────────────────────────
 
 ENV_FILE   ?= ideas.env
 INPUT_DIR  ?= input
@@ -25,16 +19,31 @@ deps:
 run:
 	$(PYTHON) main.py
 
-# Run with autocomplete disabled (pattern mode only — faster, no network calls)
+# Pattern mode only — faster, no network calls
 run-patterns:
 	USE_AUTOCOMPLETE=false $(PYTHON) main.py
 
-# Run with patterns disabled (autocomplete only)
+# Autocomplete only
 run-autocomplete:
 	USE_PATTERNS=false $(PYTHON) main.py
+
+# AI mode (requires API_KEY set in ideas.env)
+run-ai:
+	@if [ -z "$(API_KEY)" ] || [ "$(API_KEY)" = "your_key_here" ]; then \
+		echo "ERROR: API_KEY is not set in $(ENV_FILE)"; exit 1; \
+	fi
+	USE_AI=true $(PYTHON) main.py
 
 clean:
 	rm -rf $(OUTPUT_DIR)
 	@echo "Cleaned $(OUTPUT_DIR)/"
 
-.PHONY: run run-patterns run-autocomplete deps clean
+help:
+	@echo "generate_article_ideas"
+	@echo "  run              — expand seeds (patterns + autocomplete)"
+	@echo "  run-patterns     — pattern expansion only (no network)"
+	@echo "  run-autocomplete — autocomplete expansion only"
+	@echo "  run-ai           — LLM-generated ideas with cluster/priority/links"
+	@echo "  clean            — remove output/"
+
+.PHONY: help deps run run-patterns run-autocomplete run-ai clean

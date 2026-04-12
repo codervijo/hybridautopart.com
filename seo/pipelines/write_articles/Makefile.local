@@ -1,11 +1,4 @@
-# ─── SEO blog generator overrides ────────────────────────────────────────────
-
-# Use a dedicated container so this project doesn't share mb1 with other projects
-export CONTAINER_NAME := seo-blog
-
-# No web server needed — disable port binding to avoid conflicts with other containers
-export HOST_PORT      :=
-export CONTAINER_PORT :=
+# ─── SEO blog generator ───────────────────────────────────────────────────────
 
 ENV_FILE    ?= blogs.env
 INPUT       ?= input/topics.json
@@ -28,7 +21,14 @@ deps:
 run:
 	USE_AI=false $(PYTHON) main.py
 
-.PHONY: run-ai clean-output clean-state clean
+help:
+	@echo "write_articles"
+	@echo "  run          — generate articles (template mode, no API)"
+	@echo "  run-ai       — generate articles via AI API"
+	@echo "  clean        — remove output/"
+	@echo "  clean-state  — reset run state (re-run all on next run)"
+
+.PHONY: help run run-ai clean clean-output clean-state
 
 # Run with AI API (requires API_KEY set in blogs.env)
 run-ai:

@@ -1,10 +1,4 @@
-# ─── SEO article reviser overrides ───────────────────────────────────────────
-
-export CONTAINER_NAME := seo-article-reviser
-
-# No web server needed
-export HOST_PORT      :=
-export CONTAINER_PORT :=
+# ─── SEO article reviser ─────────────────────────────────────────────────────
 
 ENV_FILE              ?= revise.env
 INPUT_ARTICLES_DIR    ?= input/articles
@@ -30,7 +24,13 @@ run:
 	fi
 	$(PYTHON) main.py
 
-.PHONY: clean clean-state
+help:
+	@echo "revise_articles"
+	@echo "  run          — apply review improvements via AI API (API_KEY required)"
+	@echo "  clean        — remove output/"
+	@echo "  clean-state  — reset run state (re-revise all on next run)"
+
+.PHONY: help deps run clean clean-state
 
 clean:
 	rm -rf $(OUTPUT_DIR)
