@@ -1,0 +1,41 @@
+# ─── Shared pipeline boilerplate ─────────────────────────────────────────────
+# Usage in a pipeline Makefile:
+#
+#   PIPELINE_NAME := write_articles
+#   include ../../Makefile.pipeline
+#
+# Inside Docker  → sets PYTHON, default goal=help, then includes Makefile.local
+# Outside Docker → help + buildsh delegation + catch-all guard
+
+# Resolve the seo/ root relative to this file's location, regardless of where
+# make is invoked from.
+_PIPELINE_SEO_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
+
+ifeq ($(shell [ -f /.dockerenv ] && echo yes),yes)
+
+PYTHON ?= python3
+.DEFAULT_GOAL := help
+include Makefile.local
+
+else
+
+.DEFAULT_GOAL := help
+
+help:
+	@echo "$(PIPELINE_NAME)  (outside Docker — targets run inside the container)"
+	@echo ""
+	@echo "  make buildsh   — enter the Docker dev container"
+	@echo "  make help      — show this message"
+	@echo ""
+	@echo "Inside the container, run 'make help' to list pipeline targets."
+
+buildsh:
+	$(MAKE) -C $(_PIPELINE_SEO_DIR) buildsh
+
+%:
+	@echo "$(PIPELINE_NAME): not in Docker. Run 'make buildsh' to enter the container, then: make $@"
+	@false
+
+.PHONY: help buildsh
+
+endif
