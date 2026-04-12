@@ -1,23 +1,15 @@
-# ─── Shared pipeline boilerplate ─────────────────────────────────────────────
-# Usage in a pipeline Makefile:
+# ─── Pipeline outside-Docker targets ─────────────────────────────────────────
+# Include from the else branch of a pipeline Makefile:
 #
-#   PIPELINE_NAME := write_articles
+#   ifeq ($(shell [ -f /.dockerenv ] && echo yes),yes)
+#     ... inside-Docker content ...
+#   else
 #   include ../../Makefile.pipeline
+#   endif
 #
-# Inside Docker  → sets PYTHON, default goal=help, then includes Makefile.local
-# Outside Docker → help + buildsh delegation + catch-all guard
+# Requires: PIPELINE_NAME set before the ifeq.
 
-# Resolve the seo/ root relative to this file's location, regardless of where
-# make is invoked from.
-_PIPELINE_SEO_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
-
-ifeq ($(shell [ -f /.dockerenv ] && echo yes),yes)
-
-PYTHON ?= python3
-.DEFAULT_GOAL := help
-include Makefile.local
-
-else
+_SEO_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 
 .DEFAULT_GOAL := help
 
@@ -30,12 +22,10 @@ help:
 	@echo "Inside the container, run 'make help' to list pipeline targets."
 
 buildsh:
-	$(MAKE) -C $(_PIPELINE_SEO_DIR) buildsh
+	$(MAKE) -C $(_SEO_DIR) buildsh
 
 %:
 	@echo "$(PIPELINE_NAME): not in Docker. Run 'make buildsh' to enter the container, then: make $@"
 	@false
 
 .PHONY: help buildsh
-
-endif

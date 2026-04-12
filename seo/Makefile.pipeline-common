@@ -1,0 +1,25 @@
+# ─── Shared pipeline targets ──────────────────────────────────────────────────
+# Include from Makefile.local after setting ENV_FILE and OUTPUT_DIR:
+#
+#   ENV_FILE   ?= foo.env
+#   OUTPUT_DIR ?= output
+#   include ../../Makefile.pipeline-common
+#
+# Provides: deps, clean
+# Optional: clean-state (include only in pipelines that track run_state)
+
+ifneq ($(wildcard $(ENV_FILE)),)
+  include $(ENV_FILE)
+  export
+endif
+
+export OUTPUT_DIR := $(OUTPUT_DIR)
+
+deps:
+	@echo "No dependencies to install (stdlib only)"
+
+clean:
+	rm -rf $(OUTPUT_DIR)
+	@echo "Cleaned $(OUTPUT_DIR)/"
+
+.PHONY: deps clean
