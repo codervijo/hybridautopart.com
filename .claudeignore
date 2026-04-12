@@ -1,0 +1,4 @@
+# Ignore files containing secrets
+*.env
+.env*
+blogs.env
