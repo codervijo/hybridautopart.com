@@ -2,10 +2,19 @@ import hashlib
 from pathlib import Path
 from string import Template
 
+LIB_DIR = Path(__file__).parent
+
 
 def load_prompt(name: str, prompts_dir: Path) -> str:
     """Read and return a prompt file by name (without .txt extension)."""
     return (prompts_dir / f"{name}.txt").read_text(encoding="utf-8").strip()
+
+
+def load_system_prompt(stage_prompts_dir: Path) -> str:
+    """Return shared persona prepended to the stage-specific system prompt."""
+    persona = (LIB_DIR / "persona.txt").read_text(encoding="utf-8").strip()
+    stage = (stage_prompts_dir / "system.txt").read_text(encoding="utf-8").strip()
+    return f"{persona}\n\n{stage}"
 
 
 def prompt_hash(*paths: Path) -> str:

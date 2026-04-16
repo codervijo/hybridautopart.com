@@ -22,7 +22,7 @@ import sys as _sys
 _SEO_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(_SEO_ROOT) not in _sys.path:
     _sys.path.insert(0, str(_SEO_ROOT))
-from lib.prompts import load_prompt as _lp, prompt_hash as _prompt_hash, validate_template_vars
+from lib.prompts import load_prompt as _lp, prompt_hash as _prompt_hash, validate_template_vars, load_system_prompt, LIB_DIR as _LIB_DIR
 
 PROMPTS_DIR = Path(__file__).parent / "prompts"
 
@@ -450,7 +450,7 @@ def generate_ai_ideas(seeds: list[str], config: dict) -> list[dict]:
         payload = json.dumps({
             "model":    config["model"],
             "messages": [
-                {"role": "system", "content": load_prompt("system")},
+                {"role": "system", "content": load_system_prompt(PROMPTS_DIR)},
                 {"role": "user",   "content": user_prompt},
             ],
             "temperature": 0.7,
@@ -560,7 +560,7 @@ def run():
         if not config["api_key"] or config["api_key"] == "your_key_here":
             log("ERROR: API_KEY is not set in ideas.env")
             sys.exit(1)
-        phash = _prompt_hash(PROMPTS_DIR / "system.txt", PROMPTS_DIR / "user.txt")
+        phash = _prompt_hash(_LIB_DIR / "persona.txt", PROMPTS_DIR / "system.txt", PROMPTS_DIR / "user.txt")
         ideas = generate_ai_ideas(seeds, config)
     else:
         phash = ""

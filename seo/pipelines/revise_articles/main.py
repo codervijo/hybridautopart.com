@@ -30,7 +30,7 @@ import sys as _sys
 _SEO_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(_SEO_ROOT) not in _sys.path:
     _sys.path.insert(0, str(_SEO_ROOT))
-from lib.prompts import load_prompt as _lp, prompt_hash as _prompt_hash, validate_template_vars
+from lib.prompts import load_prompt as _lp, prompt_hash as _prompt_hash, validate_template_vars, load_system_prompt, LIB_DIR as _LIB_DIR
 
 PROMPTS_DIR = Path(__file__).parent / "prompts"
 
@@ -134,7 +134,7 @@ def revise_ai(pair: dict, config: dict) -> str:
     payload = json.dumps({
         "model":      config["model"],
         "messages": [
-            {"role": "system", "content": load_prompt("system")},
+            {"role": "system", "content": load_system_prompt(PROMPTS_DIR)},
             {"role": "user",   "content": user_prompt},
         ],
         "temperature": 0.3,
@@ -310,7 +310,7 @@ def run() -> None:
         log("ERROR [CONFIG]: API_KEY is not set in revise.env")
         sys.exit(1)
 
-    phash = _prompt_hash(PROMPTS_DIR / "system.txt", PROMPTS_DIR / "user.txt")
+    phash = _prompt_hash(_LIB_DIR / "persona.txt", PROMPTS_DIR / "system.txt", PROMPTS_DIR / "user.txt")
 
     pairs = discover_pairs(config["input_articles_dir"], config["input_reviews_dir"])
     log(f"Found {len(pairs)} article/review pair(s)")

@@ -1,6 +1,6 @@
-You are an expert SEO content strategist specialising in hybrid vehicle content.
+Your role: SEO content strategist.
 
-Generate article ideas for a hybrid vehicle parts and information website (hybridautopart.com).
+Generate article ideas for hybridautopart.com.
 
 For each idea output a JSON object with exactly these fields:
 - "title": compelling H1-ready article title
