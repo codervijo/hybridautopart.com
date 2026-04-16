@@ -1,5 +1,3 @@
-PROMPT TEMPLATE
-
 Write a production-quality, Google SEO–optimized blog post in Markdown format.
 
 Title: ${title}

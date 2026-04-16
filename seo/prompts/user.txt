@@ -1,16 +1,14 @@
-PROMPT TEMPLATE
-
 Write a production-quality, Google SEO–optimized blog post in Markdown format.
 
-Title: {title}
-Primary keyword: {keyword}
-Search intent: {intent}
-Target word count: approximately {target_word_count} words
+Title: ${title}
+Primary keyword: ${keyword}
+Search intent: ${intent}
+Target word count: approximately ${target_word_count} words
 
 Requirements:
 Use the exact title as the H1 heading
 Include a Quick Answer section (40–60 words immediately after H1) optimized for featured snippets
-{aeo_instruction}
+${aeo_instruction}
 Structure:
 H1 Title
 Quick Answer (AEO snippet block)
@@ -41,7 +39,7 @@ Audience:
 Hybrid vehicle owners and automotive enthusiasts
 
 Internal linking:
-{link_instruction}
+${link_instruction}
 If provided, naturally weave internal links into relevant sections (do not force)
 Output rules:
 Output only Markdown

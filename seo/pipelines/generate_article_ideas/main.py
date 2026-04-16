@@ -5,6 +5,7 @@ Generates content ideas from seed keywords via autocomplete expansion and
 pattern-based expansion. Writes structured JSON to output/ideas.json.
 """
 
+import datetime
 import json
 import os
 import re
@@ -21,7 +22,7 @@ import sys as _sys
 _SEO_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(_SEO_ROOT) not in _sys.path:
     _sys.path.insert(0, str(_SEO_ROOT))
-from lib.prompts import load_prompt as _lp, prompt_hash as _prompt_hash
+from lib.prompts import load_prompt as _lp, prompt_hash as _prompt_hash, validate_template_vars
 
 PROMPTS_DIR = Path(__file__).parent / "prompts"
 
@@ -440,11 +441,11 @@ def generate_ai_ideas(seeds: list[str], config: dict) -> list[dict]:
         f"{ideas_per_seed} ideas/seed")
 
     for b_idx, batch in enumerate(batches):
-        seeds_text  = "\n".join(f"- {s}" for s in batch)
-        user_prompt = Template(load_prompt("user")).substitute(
-            ideas_per_seed=ideas_per_seed,
-            seeds=seeds_text,
-        )
+        seeds_text = "\n".join(f"- {s}" for s in batch)
+        tmpl = load_prompt("user")
+        vars_ = dict(ideas_per_seed=ideas_per_seed, seeds=seeds_text)
+        validate_template_vars(tmpl, vars_, label="generate_article_ideas/user.txt")
+        user_prompt = Template(tmpl).substitute(vars_)
 
         payload = json.dumps({
             "model":    config["model"],
@@ -519,6 +520,20 @@ def write_output(output_dir: Path, ideas: list[dict]) -> Path:
     return out_path
 
 
+def write_summary(output_dir: Path, total: int, mode: str, phash: str) -> None:
+    state_dir = output_dir / "run_state"
+    state_dir.mkdir(parents=True, exist_ok=True)
+    summary_path = state_dir / "summary.json"
+    summary = {
+        "total": total,
+        "mode": mode,
+        "prompt_hash": phash,
+        "timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
+    }
+    summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
+    os.chmod(summary_path, 0o666)
+
+
 # ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
@@ -545,8 +560,10 @@ def run():
         if not config["api_key"] or config["api_key"] == "your_key_here":
             log("ERROR: API_KEY is not set in ideas.env")
             sys.exit(1)
+        phash = _prompt_hash(PROMPTS_DIR / "system.txt", PROMPTS_DIR / "user.txt")
         ideas = generate_ai_ideas(seeds, config)
     else:
+        phash = ""
         all_keywords: list[str] = []
 
         for i, seed in enumerate(seeds):
@@ -572,6 +589,7 @@ def run():
 
     out_path = write_output(config["output_dir"], ideas)
     log(f"Written → {out_path}")
+    write_summary(config["output_dir"], len(ideas), "ai" if config["use_ai"] else "pattern", phash)
 
 
 if __name__ == "__main__":

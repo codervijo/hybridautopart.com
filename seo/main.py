@@ -16,6 +16,12 @@ import datetime
 import urllib.request
 import urllib.error
 from pathlib import Path
+from string import Template
+import sys as _sys
+_SEO_ROOT = Path(__file__).parent
+if str(_SEO_ROOT) not in _sys.path:
+    _sys.path.insert(0, str(_SEO_ROOT))
+from lib.prompts import validate_template_vars
 
 PROMPTS_DIR = Path(__file__).parent / "prompts"
 
@@ -353,7 +359,8 @@ def _build_prompt(topic: dict) -> str:
         else ""
     )
 
-    return load_prompt("user").format(
+    tmpl = load_prompt("user")
+    vars_ = dict(
         title=topic["title"],
         keyword=topic["keyword"],
         intent=topic["search_intent"],
@@ -361,6 +368,8 @@ def _build_prompt(topic: dict) -> str:
         aeo_instruction=aeo_instruction,
         link_instruction=link_instruction,
     )
+    validate_template_vars(tmpl, vars_, label="prompts/user.txt")
+    return Template(tmpl).substitute(vars_)
 
 
 def generate_ai(topic: dict, config: dict) -> str:

@@ -30,7 +30,7 @@ import sys as _sys
 _SEO_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(_SEO_ROOT) not in _sys.path:
     _sys.path.insert(0, str(_SEO_ROOT))
-from lib.prompts import load_prompt as _lp, prompt_hash as _prompt_hash
+from lib.prompts import load_prompt as _lp, prompt_hash as _prompt_hash, validate_template_vars
 
 PROMPTS_DIR = Path(__file__).parent / "prompts"
 
@@ -123,10 +123,13 @@ def discover_pairs(articles_dir: Path, reviews_dir: Path) -> list[dict]:
 
 def revise_ai(pair: dict, config: dict) -> str:
     """Call an OpenAI-compatible chat completions endpoint to apply the review."""
-    user_prompt = Template(load_prompt("user")).substitute(
+    tmpl = load_prompt("user")
+    vars_ = dict(
         original_article=pair["article_content"],
         review=pair["review_content"],
     )
+    validate_template_vars(tmpl, vars_, label="revise_articles/user.txt")
+    user_prompt = Template(tmpl).substitute(vars_)
 
     payload = json.dumps({
         "model":      config["model"],
