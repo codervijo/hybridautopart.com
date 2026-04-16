@@ -1,0 +1,7 @@
+Labeled cross-section diagram showing the internal workings of ${section} in a hybrid vehicle, ${style}.
+---
+Flat-design infographic explaining ${section} with icons and directional flow arrows for a hybrid vehicle audience, ${style}.
+---
+Step-by-step numbered visual guide illustrating ${section} for hybrid vehicle owners and technicians, ${style}.
+---
+Side-by-side comparison infographic for ${section}, highlighting key differences and technical specifications, ${style}.

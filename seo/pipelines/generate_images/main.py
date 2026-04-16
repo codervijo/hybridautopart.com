@@ -21,6 +21,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
+from string import Template
 
 _PROMPTS_DIR = Path(__file__).parent / "prompts"
 _SEO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -157,7 +158,15 @@ def parse_markdown(content: str) -> dict:
 # Prompt generation
 # ---------------------------------------------------------------------------
 
-_IMAGE_PROMPTS: dict = json.loads((_PROMPTS_DIR / "image_prompts.json").read_text(encoding="utf-8"))
+def _load_prompt(name: str) -> str:
+    return (_PROMPTS_DIR / f"{name}.txt").read_text(encoding="utf-8").strip()
+
+
+def _load_prompt_list(name: str) -> list[str]:
+    """Load a multi-template .txt file split by '---' separators."""
+    raw = (_PROMPTS_DIR / f"{name}.txt").read_text(encoding="utf-8")
+    return [t.strip() for t in raw.split("---") if t.strip()]
+
 
 # Skip generic sections that don't map to useful diagrams
 _SKIP_SECTIONS = frozenset({
@@ -176,19 +185,19 @@ def _pick_supporting_h2s(h2_sections: list[str], min_count: int = 2, max_count: 
 
 def generate_prompts(parsed: dict) -> dict:
     topic = parsed["topic"]
-    style = _IMAGE_PROMPTS["style"]
-    templates = _IMAGE_PROMPTS["supporting"]
+    style = _load_prompt("style")
+    templates = _load_prompt_list("supporting")
 
-    featured = _IMAGE_PROMPTS["featured"].format(topic=topic, style=style)
+    featured = Template(_load_prompt("featured")).substitute(topic=topic, style=style)
 
     selected_h2s = _pick_supporting_h2s(parsed["h2_sections"])
     images = []
     for i, section in enumerate(selected_h2s):
-        template = templates[i % len(templates)]
+        tmpl = templates[i % len(templates)]
         images.append({
             "name": f"diagram-{i + 1}",
             "section": section,
-            "prompt": template.format(section=section, style=style),
+            "prompt": Template(tmpl).substitute(section=section, style=style),
         })
 
     return {"featured": featured, "images": images}
@@ -397,7 +406,11 @@ def write_manifest(post_dir: Path, slug: str, parsed: dict, image_records: list[
         "title":        parsed["title"],
         "keyword":      parsed["keyword"],
         "mode":         mode,
-        "prompt_hash":  _prompt_hash(_PROMPTS_DIR / "image_prompts.json"),
+        "prompt_hash":  _prompt_hash(
+            _PROMPTS_DIR / "style.txt",
+            _PROMPTS_DIR / "featured.txt",
+            _PROMPTS_DIR / "supporting.txt",
+        ),
         "images":       image_records,
         "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
     }
