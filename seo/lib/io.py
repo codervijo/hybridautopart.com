@@ -11,7 +11,7 @@ def log(msg: str) -> None:
 
 
 def utc_now() -> str:
-    return datetime.datetime.now(datetime.UTC).isoformat()
+    return datetime.datetime.now(datetime.timezone.utc).isoformat()
 
 
 def atomic_write(path: Path, content: str) -> None:
