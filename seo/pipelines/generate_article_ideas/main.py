@@ -5,24 +5,27 @@ Generates content ideas from seed keywords via autocomplete expansion and
 pattern-based expansion. Writes structured JSON to output/ideas.json.
 """
 
-import datetime
 import json
 import os
+import random
 import re
 import sys
 import time
-import random
-import urllib.request
 import urllib.error
 import urllib.parse
+import urllib.request
 from pathlib import Path
 from string import Template
 
-import sys as _sys
 _SEO_ROOT = Path(__file__).resolve().parent.parent.parent
-if str(_SEO_ROOT) not in _sys.path:
-    _sys.path.insert(0, str(_SEO_ROOT))
-from lib.prompts import load_prompt as _lp, prompt_hash as _prompt_hash, validate_template_vars, load_system_prompt, LIB_DIR as _LIB_DIR
+if str(_SEO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_SEO_ROOT))
+
+from lib.env import load_env_file
+from lib.http import with_retry as _api_retry
+from lib.io import atomic_write, log, utc_now
+from lib.prompts import LIB_DIR as _LIB_DIR, load_prompt as _lp, load_system_prompt, prompt_hash as _prompt_hash, validate_template_vars
+from lib.text import keyword_to_title, slugify
 
 PROMPTS_DIR = Path(__file__).parent / "prompts"
 
@@ -35,43 +38,27 @@ def load_prompt(name: str) -> str:
 # Config
 # ---------------------------------------------------------------------------
 
-def load_env_file(path="ideas.env"):
-    env_path = Path(path)
-    if not env_path.exists():
-        return
-    with open(env_path) as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            key, _, value = line.partition("=")
-            key = key.strip()
-            value = value.strip().strip('"').strip("'")
-            if key and key not in os.environ:
-                os.environ[key] = value
-
-
-def get_config():
-    load_env_file()
+def get_config() -> dict:
+    load_env_file("ideas.env")
     return {
-        "input_dir": Path(os.environ.get("INPUT_DIR", "input")),
-        "output_dir": Path(os.environ.get("OUTPUT_DIR", "output")),
-        "use_autocomplete": os.environ.get("USE_AUTOCOMPLETE", "true").lower() == "true",
-        "autocomplete_az": os.environ.get("AUTOCOMPLETE_AZ", "true").lower() == "true",
+        "input_dir":           Path(os.environ.get("INPUT_DIR", "input")),
+        "output_dir":          Path(os.environ.get("OUTPUT_DIR", "output")),
+        "use_autocomplete":    os.environ.get("USE_AUTOCOMPLETE", "true").lower() == "true",
+        "autocomplete_az":     os.environ.get("AUTOCOMPLETE_AZ", "true").lower() == "true",
         "autocomplete_modifiers": os.environ.get("AUTOCOMPLETE_MODIFIERS", "true").lower() == "true",
-        "use_patterns": os.environ.get("USE_PATTERNS", "true").lower() == "true",
-        "delay_ms": int(os.environ.get("DELAY_MS", "500")),
-        "jitter_ms": int(os.environ.get("JITTER_MS", "300")),
-        "max_retries": int(os.environ.get("MAX_RETRIES", "3")),
-        "timeout": int(os.environ.get("TIMEOUT", "10")),
-        "default_word_count": int(os.environ.get("DEFAULT_WORD_COUNT", "1200")),
-        "use_ai":         os.environ.get("USE_AI", "false").lower() == "true",
-        "api_key":        os.environ.get("API_KEY", ""),
-        "model":          os.environ.get("MODEL", "gpt-4.1-mini"),
-        "api_url":        os.environ.get("API_URL", "https://api.openai.com/v1/chat/completions"),
-        "max_tokens":     int(os.environ.get("MAX_TOKENS", "4096")),
-        "ideas_per_seed": int(os.environ.get("IDEAS_PER_SEED", "8")),
-        "batch_size":     int(os.environ.get("BATCH_SIZE", "10")),
+        "use_patterns":        os.environ.get("USE_PATTERNS", "true").lower() == "true",
+        "delay_ms":            int(os.environ.get("DELAY_MS", "500")),
+        "jitter_ms":           int(os.environ.get("JITTER_MS", "300")),
+        "max_retries":         int(os.environ.get("MAX_RETRIES", "3")),
+        "timeout":             int(os.environ.get("TIMEOUT", "10")),
+        "default_word_count":  int(os.environ.get("DEFAULT_WORD_COUNT", "1200")),
+        "use_ai":              os.environ.get("USE_AI", "false").lower() == "true",
+        "api_key":             os.environ.get("API_KEY", ""),
+        "model":               os.environ.get("MODEL", "gpt-4.1-mini"),
+        "api_url":             os.environ.get("API_URL", "https://api.openai.com/v1/chat/completions"),
+        "max_tokens":          int(os.environ.get("MAX_TOKENS", "4096")),
+        "ideas_per_seed":      int(os.environ.get("IDEAS_PER_SEED", "8")),
+        "batch_size":          int(os.environ.get("BATCH_SIZE", "10")),
     }
 
 
@@ -138,11 +125,10 @@ def load_all_seeds(input_dir: Path) -> list[str]:
         except Exception as e:
             log(f"WARN: could not read {path.name}: {e}")
 
-    # Normalize + deduplicate seeds
     seen: set[str] = set()
     unique: list[str] = []
     for s in seeds:
-        n = normalize(s)
+        n = _normalize(s)
         if n and n not in seen:
             seen.add(n)
             unique.append(n)
@@ -151,36 +137,12 @@ def load_all_seeds(input_dir: Path) -> list[str]:
 
 
 # ---------------------------------------------------------------------------
-# Normalization & slug
+# Normalization & intent classification
 # ---------------------------------------------------------------------------
 
-def normalize(text: str) -> str:
+def _normalize(text: str) -> str:
     return re.sub(r"\s+", " ", text.lower().strip())
 
-
-def slugify(text: str) -> str:
-    text = text.lower().strip()
-    text = re.sub(r"[^\w\s-]", "", text)
-    text = re.sub(r"[\s_]+", "-", text)
-    text = re.sub(r"-+", "-", text)
-    return text.strip("-")
-
-
-def keyword_to_title(keyword: str) -> str:
-    stop_words = {
-        "a", "an", "the", "and", "or", "but", "in", "on", "at",
-        "to", "for", "of", "with", "by", "from", "is", "are",
-    }
-    words = keyword.strip().split()
-    return " ".join(
-        w.capitalize() if i == 0 or w.lower() not in stop_words else w.lower()
-        for i, w in enumerate(words)
-    )
-
-
-# ---------------------------------------------------------------------------
-# Intent classification
-# ---------------------------------------------------------------------------
 
 _INTENT_RULES: list[tuple[list[str], str]] = [
     (["vs", "versus", "compare", "difference between", " or "], "Comparison"),
@@ -200,24 +162,20 @@ def classify_intent(keyword: str) -> str:
 
 
 def target_word_count(keyword: str, default: int) -> int:
-    intent = classify_intent(keyword)
     return {
         "Informational": 1500,
         "Commercial":    1800,
         "Comparison":    2000,
         "Transactional":  800,
-    }.get(intent, default)
+    }.get(classify_intent(keyword), default)
 
 
 # ---------------------------------------------------------------------------
 # Autocomplete expansion
 # ---------------------------------------------------------------------------
 
-_AUTOCOMPLETE_URL = (
-    "https://suggestqueries.google.com/complete/search?client=firefox&q={query}"
-)
-
-_AZ = list("abcdefghijklmnopqrstuvwxyz")
+_AUTOCOMPLETE_URL = "https://suggestqueries.google.com/complete/search?client=firefox&q={query}"
+_AZ        = list("abcdefghijklmnopqrstuvwxyz")
 _MODIFIERS = ["how", "why", "best", "cost", "vs", "problems", "is", "what", "when"]
 
 
@@ -234,7 +192,8 @@ def fetch_autocomplete(query: str, timeout: int) -> list[str]:
     return []
 
 
-def with_retry(fn, max_retries: int, label: str) -> list[str]:
+def _autocomplete_retry(fn, max_retries: int, label: str) -> list[str]:
+    """Retry wrapper for autocomplete — returns [] on final failure (non-critical)."""
     attempt = 0
     last_error: Exception | None = None
     while attempt <= max_retries:
@@ -251,7 +210,7 @@ def with_retry(fn, max_retries: int, label: str) -> list[str]:
     return []
 
 
-def _sleep(config: dict):
+def _sleep(config: dict) -> None:
     d = config["delay_ms"] / 1000.0 + random.uniform(0, config["jitter_ms"] / 1000.0)
     if d > 0:
         time.sleep(d)
@@ -259,28 +218,24 @@ def _sleep(config: dict):
 
 def expand_autocomplete(seed: str, config: dict) -> list[str]:
     results: list[str] = []
-    timeout = config["timeout"]
+    timeout     = config["timeout"]
     max_retries = config["max_retries"]
 
-    # A–Z: "{seed} a", "{seed} b", ...
     if config["autocomplete_az"]:
         for ch in _AZ:
             query = f"{seed} {ch}"
-            results.extend(with_retry(
+            results.extend(_autocomplete_retry(
                 lambda q=query: fetch_autocomplete(q, timeout),
-                max_retries=max_retries,
-                label=query,
+                max_retries=max_retries, label=query,
             ))
             _sleep(config)
 
-    # Modifier prefixes: "how {seed}", "why {seed}", ...
     if config["autocomplete_modifiers"]:
         for mod in _MODIFIERS:
             query = f"{mod} {seed}"
-            results.extend(with_retry(
+            results.extend(_autocomplete_retry(
                 lambda q=query: fetch_autocomplete(q, timeout),
-                max_retries=max_retries,
-                label=query,
+                max_retries=max_retries, label=query,
             ))
             _sleep(config)
 
@@ -329,7 +284,7 @@ def expand_patterns(seed: str) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def build_idea(keyword: str, default_wc: int) -> dict:
-    kw = normalize(keyword)
+    kw = _normalize(keyword)
     return {
         "title":                    keyword_to_title(kw),
         "primary_keyword":          kw,
@@ -358,7 +313,6 @@ def deduplicate(ideas: list[dict]) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 def _extract_json_array(text: str) -> list:
-    """Parse a JSON array from LLM output, tolerating markdown code fences."""
     text = text.strip()
     fence = re.match(r"^```(?:json)?\s*\n?(.*?)\n?```\s*$", text, re.DOTALL)
     if fence:
@@ -367,16 +321,14 @@ def _extract_json_array(text: str) -> list:
 
 
 def _normalize_ai_idea(raw: dict, idx: int, default_wc: int) -> dict | None:
-    """Coerce an LLM-generated idea dict into the standard schema."""
     keyword = (
         raw.get("primary_keyword") or raw.get("keyword") or raw.get("title", "")
     ).strip().lower()
     if not keyword:
         return None
 
-    title = (raw.get("title") or keyword_to_title(keyword)).strip()
-    slug  = slugify(raw.get("slug") or keyword) or f"idea-{idx}"
-
+    title  = (raw.get("title") or keyword_to_title(keyword)).strip()
+    slug   = slugify(raw.get("slug") or keyword) or f"idea-{idx}"
     intent = raw.get("search_intent", "").strip()
     if intent not in {"Informational", "Commercial", "Comparison", "Transactional"}:
         intent = classify_intent(keyword)
@@ -396,7 +348,7 @@ def _normalize_ai_idea(raw: dict, idx: int, default_wc: int) -> dict | None:
 
     return {
         "title":                    title,
-        "primary_keyword":          normalize(keyword),
+        "primary_keyword":          _normalize(keyword),
         "search_intent":            intent,
         "slug":                     slug,
         "target_word_count":        wc,
@@ -406,43 +358,24 @@ def _normalize_ai_idea(raw: dict, idx: int, default_wc: int) -> dict | None:
     }
 
 
-def _call_api_with_retry(fn, max_retries: int, label: str):
-    """Call fn() with exponential backoff; raises on final failure."""
-    attempt = 0
-    last_error = None
-    while attempt <= max_retries:
-        try:
-            return fn()
-        except urllib.error.HTTPError as e:
-            last_error = e
-            if e.code in (401, 403):
-                raise
-            wait = (2 ** attempt) + random.uniform(0, 1)
-            log(f"  RETRY [{attempt + 1}/{max_retries}] {label} — HTTP {e.code}, waiting {wait:.1f}s")
-        except Exception as e:
-            last_error = e
-            wait = (2 ** attempt) + random.uniform(0, 1)
-            log(f"  RETRY [{attempt + 1}/{max_retries}] {label} — {type(e).__name__}: {e}, waiting {wait:.1f}s")
-        attempt += 1
-        if attempt <= max_retries:
-            time.sleep(wait)
-    raise last_error
+def _chat_response(req: urllib.request.Request, timeout: int) -> str:
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        result = json.loads(resp.read().decode())
+    return result["choices"][0]["message"]["content"]
 
 
 def generate_ai_ideas(seeds: list[str], config: dict) -> list[dict]:
-    """Call the LLM in batches to generate enriched article ideas for all seeds."""
     batch_size    = config["batch_size"]
     ideas_per_seed = config["ideas_per_seed"]
     default_wc    = config["default_word_count"]
     batches       = [seeds[i:i + batch_size] for i in range(0, len(seeds), batch_size)]
     all_ideas: list[dict] = []
 
-    log(f"AI mode: {len(seeds)} seed(s) across {len(batches)} batch(es), "
-        f"{ideas_per_seed} ideas/seed")
+    log(f"AI mode: {len(seeds)} seed(s) across {len(batches)} batch(es), {ideas_per_seed} ideas/seed")
 
     for b_idx, batch in enumerate(batches):
         seeds_text = "\n".join(f"- {s}" for s in batch)
-        tmpl = load_prompt("user")
+        tmpl  = load_prompt("user")
         vars_ = dict(ideas_per_seed=ideas_per_seed, seeds=seeds_text)
         validate_template_vars(tmpl, vars_, label="generate_article_ideas/user.txt")
         user_prompt = Template(tmpl).substitute(vars_)
@@ -470,7 +403,7 @@ def generate_ai_ideas(seeds: list[str], config: dict) -> list[dict]:
         log(f"[{b_idx + 1}/{len(batches)}] Calling API for {len(batch)} seed(s)…")
 
         try:
-            raw_text = _call_api_with_retry(
+            raw_text = _api_retry(
                 lambda r=req: _chat_response(r, config["timeout"]),
                 max_retries=config["max_retries"],
                 label=f"batch-{b_idx + 1}",
@@ -502,51 +435,34 @@ def generate_ai_ideas(seeds: list[str], config: dict) -> list[dict]:
     return all_ideas
 
 
-def _chat_response(req: urllib.request.Request, timeout: int) -> str:
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        result = json.loads(resp.read().decode())
-    return result["choices"][0]["message"]["content"]
-
-
 # ---------------------------------------------------------------------------
 # Output
 # ---------------------------------------------------------------------------
 
 def write_output(output_dir: Path, ideas: list[dict]) -> Path:
-    output_dir.mkdir(parents=True, exist_ok=True)
     out_path = output_dir / "ideas.json"
-    out_path.write_text(json.dumps(ideas, indent=2, ensure_ascii=False), encoding="utf-8")
-    os.chmod(out_path, 0o666)
+    atomic_write(out_path, json.dumps(ideas, indent=2, ensure_ascii=False))
     return out_path
 
 
 def write_summary(output_dir: Path, total: int, mode: str, phash: str) -> None:
-    state_dir = output_dir / "run_state"
-    state_dir.mkdir(parents=True, exist_ok=True)
-    summary_path = state_dir / "summary.json"
     summary = {
-        "total": total,
-        "mode": mode,
+        "total":       total,
+        "mode":        mode,
         "prompt_hash": phash,
-        "timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
+        "timestamp":   utc_now(),
     }
-    summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
-    os.chmod(summary_path, 0o666)
-
-
-# ---------------------------------------------------------------------------
-# Logging
-# ---------------------------------------------------------------------------
-
-def log(msg: str):
-    print(msg, flush=True)
+    atomic_write(
+        output_dir / "run_state" / "summary.json",
+        json.dumps(summary, indent=2, ensure_ascii=False),
+    )
 
 
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
-def run():
+def run() -> None:
     config = get_config()
 
     seeds = load_all_seeds(config["input_dir"])
@@ -568,7 +484,6 @@ def run():
 
         for i, seed in enumerate(seeds):
             log(f"[{i + 1}/{len(seeds)}] Expanding: {seed}")
-
             all_keywords.append(seed)
 
             if config["use_patterns"]:

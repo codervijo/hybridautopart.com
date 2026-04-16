@@ -15,14 +15,19 @@ Output always written to:
   output/posts/<slug>/images/
 """
 
-import datetime
 import json
 import os
 import re
 import shutil
 import sys
-import tempfile
 from pathlib import Path
+
+_SEO_ROOT = Path(__file__).resolve().parent.parent.parent
+if str(_SEO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_SEO_ROOT))
+
+from lib.env import load_env_file
+from lib.io import atomic_write, log, utc_now
 
 # Image file extensions recognised as embeddable
 _IMG_EXTENSIONS = {".webp", ".png", ".jpg", ".jpeg", ".svg", ".gif"}
@@ -42,24 +47,8 @@ _SKIP_SECTIONS = frozenset({
 # Config
 # ---------------------------------------------------------------------------
 
-def load_env_file(path: str = "embed.env") -> None:
-    env_path = Path(path)
-    if not env_path.exists():
-        return
-    with open(env_path) as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            key, _, value = line.partition("=")
-            key = key.strip()
-            value = value.strip().strip('"').strip("'")
-            if key and key not in os.environ:
-                os.environ[key] = value
-
-
 def get_config() -> dict:
-    load_env_file()
+    load_env_file("embed.env")
     return {
         "input_dir":        Path(os.environ.get("INPUT_DIR", "input")),
         "output_dir":       Path(os.environ.get("OUTPUT_DIR", "output/posts")),
@@ -348,29 +337,13 @@ def embed_images(
     return "\n".join(result), logs
 
 
-# ---------------------------------------------------------------------------
-# Atomic I/O
-# ---------------------------------------------------------------------------
-
-def atomic_write(path: Path, content: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(
-        mode="w", encoding="utf-8",
-        dir=path.parent, suffix=".tmp", delete=False,
-    ) as tmp:
-        tmp.write(content)
-        tmp_path = tmp.name
-    shutil.move(tmp_path, path)
-    os.chmod(path, 0o666)
-
-
 def write_manifest(post_dir: Path, slug: str, parsed: dict, embedded: list[str]) -> None:
     manifest = {
         "slug":         slug,
         "title":        parsed["title"],
         "keyword":      parsed["keyword"],
         "embedded":     embedded,
-        "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "generated_at": utc_now(),
     }
     atomic_write(post_dir / "manifest.json", json.dumps(manifest, indent=2, ensure_ascii=False))
 
@@ -381,14 +354,6 @@ def write_manifest(post_dir: Path, slug: str, parsed: dict, embedded: list[str])
 
 def is_post_done(post_dir: Path) -> bool:
     return (post_dir / "manifest.json").exists()
-
-
-# ---------------------------------------------------------------------------
-# Logging
-# ---------------------------------------------------------------------------
-
-def log(msg: str) -> None:
-    print(msg, flush=True)
 
 
 # ---------------------------------------------------------------------------

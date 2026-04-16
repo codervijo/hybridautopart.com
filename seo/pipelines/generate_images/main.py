@@ -8,14 +8,11 @@ Input:  input/posts/<slug>.md  OR  input/posts/<slug>/article.md
 Output: output/posts/<slug>/article.md + images/ + prompts.json + manifest.json
 """
 
-import datetime
 import json
 import os
 import random
 import re
-import shutil
 import sys
-import tempfile
 import time
 import urllib.error
 import urllib.parse
@@ -27,6 +24,10 @@ _PROMPTS_DIR = Path(__file__).parent / "prompts"
 _SEO_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(_SEO_ROOT) not in sys.path:
     sys.path.insert(0, str(_SEO_ROOT))
+
+from lib.env import load_env_file
+from lib.http import with_retry
+from lib.io import atomic_write, atomic_write_bytes, log, utc_now
 from lib.prompts import prompt_hash as _prompt_hash
 
 
@@ -34,24 +35,8 @@ from lib.prompts import prompt_hash as _prompt_hash
 # Config
 # ---------------------------------------------------------------------------
 
-def load_env_file(path: str = "images.env") -> None:
-    env_path = Path(path)
-    if not env_path.exists():
-        return
-    with open(env_path) as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            key, _, value = line.partition("=")
-            key = key.strip()
-            value = value.strip().strip('"').strip("'")
-            if key and key not in os.environ:
-                os.environ[key] = value
-
-
 def get_config() -> dict:
-    load_env_file()
+    load_env_file("images.env")
     return {
         "input_dir":        Path(os.environ.get("INPUT_DIR", "input")),
         "output_dir":       Path(os.environ.get("OUTPUT_DIR", "output/posts")),
@@ -253,28 +238,6 @@ def _call_image_api(prompt: str, config: dict) -> bytes:
         return img_resp.read()
 
 
-def with_retry(fn, max_retries: int, label: str):
-    attempt = 0
-    last_error: Exception | None = None
-    while attempt <= max_retries:
-        try:
-            return fn()
-        except urllib.error.HTTPError as e:
-            last_error = e
-            if e.code in (401, 403):
-                raise
-            wait = (2 ** attempt) + random.uniform(0, 1)
-            log(f"  RETRY [{attempt + 1}/{max_retries}] {label} — HTTP {e.code}, waiting {wait:.1f}s")
-        except Exception as e:
-            last_error = e
-            wait = (2 ** attempt) + random.uniform(0, 1)
-            log(f"  RETRY [{attempt + 1}/{max_retries}] {label} — {type(e).__name__}: {e}, waiting {wait:.1f}s")
-        attempt += 1
-        if attempt <= max_retries:
-            time.sleep(wait)
-    raise last_error  # type: ignore[misc]
-
-
 def generate_image(name: str, prompt: str, images_dir: Path, config: dict) -> str:
     """
     Generate one image. Returns 'ai' or 'placeholder'.
@@ -369,34 +332,6 @@ def embed_images(content: str, parsed: dict, prompts: dict) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Atomic I/O
-# ---------------------------------------------------------------------------
-
-def atomic_write(path: Path, content: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(
-        mode="w", encoding="utf-8",
-        dir=path.parent, suffix=".tmp", delete=False,
-    ) as tmp:
-        tmp.write(content)
-        tmp_path = tmp.name
-    shutil.move(tmp_path, path)
-    os.chmod(path, 0o666)
-
-
-def atomic_write_bytes(path: Path, data: bytes) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(
-        mode="wb",
-        dir=path.parent, suffix=".tmp", delete=False,
-    ) as tmp:
-        tmp.write(data)
-        tmp_path = tmp.name
-    shutil.move(tmp_path, path)
-    os.chmod(path, 0o666)
-
-
-# ---------------------------------------------------------------------------
 # Manifest
 # ---------------------------------------------------------------------------
 
@@ -412,7 +347,7 @@ def write_manifest(post_dir: Path, slug: str, parsed: dict, image_records: list[
             _PROMPTS_DIR / "supporting.txt",
         ),
         "images":       image_records,
-        "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "generated_at": utc_now(),
     }
     atomic_write(post_dir / "manifest.json", json.dumps(manifest, indent=2, ensure_ascii=False))
 
@@ -427,14 +362,6 @@ def is_post_done(post_dir: Path) -> bool:
 
 def image_exists(images_dir: Path, name: str) -> bool:
     return (images_dir / f"{name}.webp").exists()
-
-
-# ---------------------------------------------------------------------------
-# Logging
-# ---------------------------------------------------------------------------
-
-def log(msg: str) -> None:
-    print(msg, flush=True)
 
 
 # ---------------------------------------------------------------------------
