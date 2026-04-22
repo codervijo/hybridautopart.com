@@ -5,6 +5,26 @@
 ## V1 — Content Machine for hybridautopart.com
 **Status:** Live — real SEO traffic, <1k visits/month
 
+| Phase | Feature | Type | Status |
+|-------|---------|------|--------|
+| P1 | Dual-provider API support (Claude + OpenAI) | Pipeline | [ ] |
+| P1 | Emergency SEO fixes (sidebar, keyword spam, factual errors) | Content | [ ] |
+| P1 | Title + meta description blitz (8 pages) | Content | [ ] |
+| P1 | Schema + category structure (breadcrumbs, FAQ, Article) | Content | [ ] |
+| P1 | Content expansion — top 3 pages | Content | [ ] |
+| P1 | Amazon Associates setup + affiliate links | Revenue | [ ] |
+| P1 | Content velocity — 12 new posts | Content | [ ] |
+| P1 | PSD Simulator React plugin launch | Tool | [ ] |
+| P2 | Toyota hybrid model expansion — 5 clusters | Content | [ ] |
+| P2 | Interactive tools — Savings Calculator, Battery Estimator, Model Comparison | Tool | [ ] |
+| P2 | Mediavine application + email newsletter | Revenue | [ ] |
+| P3 | Backlink strategy — HARO, outreach, guest posts | Growth | [ ] |
+| P3 | Content scale — 144 posts + used car + DIY guides | Content | [ ] |
+| P3 | YouTube companion channel | Channel | [ ] |
+| P3 | Revenue at 100K — ads + affiliate + sponsored + newsletter | Revenue | [ ] |
+
+---
+
 ## Phase 1 — Foundation & Recovery (Months 1–3)
 Target: 833 → 3,000 visits/month
 
@@ -104,6 +124,24 @@ Target: 10,000 → 100,000 visits/month
 
 Goal: remove manual steps from the pipeline and expand the content machine to other portfolio sites.
 
+| Phase | Feature | Type | Status |
+|-------|---------|------|--------|
+| P1 | WordPress REST API — push drafts directly from pipeline output | Pipeline | [ ] |
+| P1 | Auto-set Yoast meta, category, tags via WP API | Pipeline | [ ] |
+| P1 | Auto-embed images into post body on upload | Pipeline | [ ] |
+| P1 | Auto-insert internal links via WP API post search | Pipeline | [ ] |
+| P2 | Per-site pipeline config (seo.env, persona, topics per domain) | Pipeline | [ ] |
+| P2 | Apply content machine to iotbastion.com | Expansion | [ ] |
+| P2 | Shared lib/, site-specific prompts and topic queue | Pipeline | [ ] |
+| P2 | Unified `make all-sites` run across portfolio | Pipeline | [ ] |
+| P3 | Search Console API integration — weekly auto-pull, flag quick wins | Intelligence | [ ] |
+| P3 | Stale content detector — flag declining posts for refresh | Intelligence | [ ] |
+| P3 | Automated content refresh pipeline | Pipeline | [ ] |
+| P3 | Competitor gap monitor | Intelligence | [ ] |
+| P3 | Weekly newsletter auto-draft from published posts | Pipeline | [ ] |
+
+---
+
 ### Phase 1 — Automated WordPress Publishing
 - [ ] WordPress REST API integration: push articles directly from pipeline output to WP drafts
 - [ ] Auto-set Yoast SEO title + meta description via WP API on publish
@@ -132,6 +170,24 @@ Goal: remove manual steps from the pipeline and expand the content machine to ot
 **Status:** Speculative — 10k–100k visits/month
 
 Goal: reduce owner time to near-zero for content operations; explore selling the machine.
+
+| Phase | Feature | Type | Status |
+|-------|---------|------|--------|
+| P1 | Full publish pipeline — idea → draft → review → revise → WP, no manual steps | Pipeline | [ ] |
+| P1 | Confidence scoring — auto-publish PASS, flag REVISE for owner | Pipeline | [ ] |
+| P1 | YouTube script pipeline — top articles → video scripts | Channel | [ ] |
+| P1 | AI thumbnail generation (DALL-E / Flux) | Channel | [ ] |
+| P1 | Automated A/B title testing — winner promoted after 30 days | Growth | [ ] |
+| P2 | Portfolio orchestration web UI — traffic, revenue, queue across all sites | Dashboard | [ ] |
+| P2 | Cross-site backlink opportunity detector | Growth | [ ] |
+| P2 | Automated affiliate performance tracking | Revenue | [ ] |
+| P2 | Domain acquisition scoring tool | Expansion | [ ] |
+| P3 | Package content machine as standalone product for niche site owners | Product | [ ] |
+| P3 | Site onboarding — domain → persona + seeds + first 20 topics | Product | [ ] |
+| P3 | Usage-based pricing — per article / per site | Product | [ ] |
+| P3 | 3–5 beta users from niche site communities | Product | [ ] |
+
+---
 
 ### Phase 1 — Zero-Touch Content Production
 - [ ] Full publish pipeline: idea → draft → review → revise → WP draft, no manual steps
