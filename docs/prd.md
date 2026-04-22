@@ -8,6 +8,14 @@
 ## Phase 1 — Foundation & Recovery (Months 1–3)
 Target: 833 → 3,000 visits/month
 
+### Pipeline: dual-provider API support
+- [ ] Add `call_llm(system, user, config)` to `lib/http.py` — auto-detects provider from `API_URL`
+- [ ] Anthropic path: `x-api-key` header, `anthropic-version`, `{"system": ..., "messages": [...]}` request shape, `result["content"][0]["text"]` extraction
+- [ ] OpenAI path: `Authorization: Bearer` header, `{"messages": [system, user]}` request shape, `result["choices"][0]["message"]["content"]` extraction
+- [ ] All pipeline `generate_ai()` functions delegate to `call_llm` — no per-pipeline provider logic
+- [ ] Switch provider by changing `API_URL` + `MODEL` + `API_KEY` in `seo.env` only
+- [ ] Tests: mock both response shapes, assert correct extraction per provider
+
 ### Emergency fixes (Week 1)
 - [ ] Remove Lamill Web Systems attribution from About Us sidebar
 - [ ] Delete "Covers:" keyword spam from prius-pwr-mode
@@ -92,7 +100,7 @@ Target: 10,000 → 100,000 visits/month
 ---
 
 ## V2 — WordPress Integration + Multi-site Expansion
-**Status:** Planned — begins after Phase 2 traffic milestone (10K visits/month)
+**Status:** Planned — 1k–10k visits/month
 
 Goal: remove manual steps from the pipeline and expand the content machine to other portfolio sites.
 
@@ -121,7 +129,7 @@ Goal: remove manual steps from the pipeline and expand the content machine to ot
 ---
 
 ## V3 — Full Automation + Productisation
-**Status:** Speculative — begins after 100K visits/month milestone
+**Status:** Speculative — 10k–100k visits/month
 
 Goal: reduce owner time to near-zero for content operations; explore selling the machine.
 
