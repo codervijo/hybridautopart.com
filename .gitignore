@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environment / secrets
+*.env
+!*.env.orig
+.env.*
+!.env.example
+
+# Node / React
+node_modules/
+dist/
+.pnpm-store/
+
+# Build output
+seo/pipelines/*/output/
+seo/plugin-builder/output/
+
+# Logs
+*.log
+seo-run.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo

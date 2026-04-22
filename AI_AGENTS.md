@@ -5,6 +5,14 @@ This file defines the AI agent roles, responsibilities, and workflows for managi
 
 ---
 
+## Working memory — Claude instructions
+
+- **After any strategy, insight, or decision is accepted by the user**, update `seo/CLAUDE.md` to reflect it. This keeps future sessions context-complete without relying on conversation history.
+- `seo/CLAUDE.md` is the living strategy document for hybridautopart.com SEO. Treat it as the source of truth for content model, author strategy, post roadmap, and technical fixes.
+- If a decision contradicts something already in `seo/CLAUDE.md`, update the file — don't leave stale information in place.
+
+---
+
 ## Owner profile
 - **Name:** Vik Thomas
 - **Background:** Experienced embedded systems / motor control engineer
