@@ -17,6 +17,11 @@
 | P1 | PSD Simulator React plugin launch | Tool | [ ] |
 | P2 | Toyota hybrid model expansion — 5 clusters | Content | [ ] |
 | P2 | Interactive tools — Savings Calculator, Battery Estimator, Model Comparison | Tool | [ ] |
+| P2 | SEO checker pipeline — per-post audit on publish (title, meta, schema, links, word count) | Pipeline | [ ] |
+| P2 | Technical SEO checker — site-wide crawl: broken links, canonical, Core Web Vitals, sitemap | Pipeline | [ ] |
+| P2 | On-page quality gate — block publish if post fails minimum SEO score | Pipeline | [ ] |
+| P2 | Provider comparison — run write_articles with Claude and OpenAI on same topics, diff output quality | Research | [ ] |
+| P2 | Cross-linking pipeline — auto-generate internal link suggestions for every page and post | Pipeline | [ ] |
 | P2 | Mediavine application + email newsletter | Revenue | [ ] |
 | P3 | Backlink strategy — HARO, outreach, guest posts | Growth | [ ] |
 | P3 | Content scale — 144 posts + used car + DIY guides | Content | [ ] |
@@ -84,6 +89,25 @@ Target: 3,000 → 10,000 visits/month
 - [ ] Hybrid vs Gas Savings Calculator (React plugin)
 - [ ] Hybrid Battery Health Estimator (React plugin)
 - [ ] Toyota Hybrid Model Comparison Tool (React plugin)
+
+### Cross-linking pipeline (Month 5)
+- [ ] Crawl all published posts and pages; build a keyword → URL index
+- [ ] For each post, identify 5–10 outbound link opportunities to other site content based on semantic overlap
+- [ ] Output: `output/cross-links.md` — per-post table of suggested anchor text + target URL + insertion point (nearest heading)
+- [ ] Optional: WP REST API mode — insert links directly into post body as HTML in WordPress drafts
+
+### Provider comparison — Claude vs OpenAI (Month 5)
+- [ ] Run `write_articles` on the same 5 topics twice — once with `claude-sonnet-4-6`, once with `gpt-4.1-mini`
+- [ ] Score both outputs with `review_articles` pipeline (HCU, structure, engagement scores)
+- [ ] Manual review: engineering depth, factual accuracy, word quality
+- [ ] Decision output: preferred provider per use-case (long-form vs short, commercial vs informational)
+- [ ] Set winning provider as default in `seo.env`; keep loser available as override
+
+### SEO checker pipelines (Month 6)
+- [ ] **Per-post SEO checker** — runs automatically after `revise_articles`; scores each post against: title length (50–60 chars), meta description present (145–160 chars), primary keyword in first 100 words, at least 3 internal links, FAQ schema present, word count ≥ target; outputs `seo-score.json` per post
+- [ ] **On-page quality gate** — pipeline refuses to emit final Markdown if post scores below threshold (configurable, default 70/100); logs failures to `output/run_state/seo-failures.jsonl`
+- [ ] **Technical SEO checker** — periodic crawl pipeline: checks all published URLs for broken internal links, missing canonical tags, duplicate titles/metas, missing sitemap entries, robots.txt blocking; outputs prioritised fix list to `output/technical-seo.md`
+- [ ] **Core Web Vitals monitor** — fetches PageSpeed Insights API for top 10 pages monthly; flags any page scoring below 70 on mobile; saves trend data to `output/cwv-history.jsonl`
 
 ### Monetization
 - [ ] Apply for Mediavine at 10K sessions/month
