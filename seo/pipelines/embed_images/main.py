@@ -48,7 +48,7 @@ _SKIP_SECTIONS = frozenset({
 # ---------------------------------------------------------------------------
 
 def get_config() -> dict:
-    load_env_file("embed.env")
+    load_env_file("../../seo.env", "embed.env")
     return {
         "input_dir":        Path(os.environ.get("INPUT_DIR", "input")),
         "output_dir":       Path(os.environ.get("OUTPUT_DIR", "output/posts")),

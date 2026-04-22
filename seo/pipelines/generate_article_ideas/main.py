@@ -39,7 +39,7 @@ def load_prompt(name: str) -> str:
 # ---------------------------------------------------------------------------
 
 def get_config() -> dict:
-    load_env_file("ideas.env")
+    load_env_file("../../seo.env", "ideas.env")
     return {
         "input_dir":           Path(os.environ.get("INPUT_DIR", "input")),
         "output_dir":          Path(os.environ.get("OUTPUT_DIR", "output")),

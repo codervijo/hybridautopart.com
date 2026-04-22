@@ -44,7 +44,7 @@ def load_prompt(name: str) -> str:
 # ---------------------------------------------------------------------------
 
 def get_config() -> dict:
-    load_env_file("revise.env")
+    load_env_file("../../seo.env", "revise.env")
     return {
         "input_articles_dir":      Path(os.environ.get("INPUT_ARTICLES_DIR", "input/articles")),
         "input_reviews_dir":       Path(os.environ.get("INPUT_REVIEWS_DIR",  "input/reviews")),

@@ -71,3 +71,37 @@ def test_value_with_equals_sign(tmp_path, monkeypatch):
     monkeypatch.delenv("FOO", raising=False)
     load_env_file(str(env))
     assert os.environ["FOO"] == "a=b"
+
+
+# ---------------------------------------------------------------------------
+# Cascade (multi-path) tests
+# ---------------------------------------------------------------------------
+
+def test_cascade_later_overrides_earlier(tmp_path, monkeypatch):
+    base = tmp_path / "base.env"
+    base.write_text("FOO=base\nBAR=base\n")
+    override = tmp_path / "override.env"
+    override.write_text("FOO=override\n")
+    monkeypatch.delenv("FOO", raising=False)
+    monkeypatch.delenv("BAR", raising=False)
+    load_env_file(str(base), str(override))
+    assert os.environ["FOO"] == "override"
+    assert os.environ["BAR"] == "base"
+
+
+def test_cascade_missing_first_path_is_noop(tmp_path, monkeypatch):
+    second = tmp_path / "second.env"
+    second.write_text("FOO=second\n")
+    monkeypatch.delenv("FOO", raising=False)
+    load_env_file(str(tmp_path / "nonexistent.env"), str(second))
+    assert os.environ["FOO"] == "second"
+
+
+def test_cascade_system_env_wins_over_all_files(tmp_path, monkeypatch):
+    base = tmp_path / "base.env"
+    base.write_text("FOO=base\n")
+    override = tmp_path / "override.env"
+    override.write_text("FOO=override\n")
+    monkeypatch.setenv("FOO", "system")
+    load_env_file(str(base), str(override))
+    assert os.environ["FOO"] == "system"

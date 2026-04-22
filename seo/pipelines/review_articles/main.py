@@ -36,7 +36,7 @@ def load_prompt(name: str) -> str:
 # ---------------------------------------------------------------------------
 
 def get_config() -> dict:
-    load_env_file("review.env")
+    load_env_file("../../seo.env", "review.env")
     return {
         "input_dir":               Path(os.environ.get("INPUT_DIR", "input")),
         "output_dir":              Path(os.environ.get("OUTPUT_DIR", "output")),

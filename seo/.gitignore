@@ -8,6 +8,7 @@ __pycache__/
 *.pyo
 .venv/
 
-# Env files with secrets
-*.env
-!*.env.example
+# Env files with secrets (pipeline-specific .env files are safe to track —
+# real credentials live only in seo.env and plugin-builder/builder.env)
+seo.env
+plugin-builder/builder.env

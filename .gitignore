@@ -13,8 +13,11 @@ build/
 .ruff_cache/
 
 # Environment / secrets
-*.env
-!*.env.orig
+# Ignore files that hold real credentials; pipeline-specific .env files are safe to track
+# since shared secrets moved to seo/seo.env.
+seo/seo.env
+seo/plugin-builder/builder.env
+.env
 .env.*
 !.env.example
 

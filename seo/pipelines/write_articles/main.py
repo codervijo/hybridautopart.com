@@ -36,7 +36,7 @@ def load_prompt(name: str) -> str:
 # ---------------------------------------------------------------------------
 
 def get_config() -> dict:
-    load_env_file("blogs.env")
+    load_env_file("../../seo.env", "blogs.env")
     return {
         "input_json":              os.environ.get("INPUT_JSON", "input/topics.json"),
         "output_dir":              Path(os.environ.get("OUTPUT_DIR", "output")),

@@ -36,7 +36,7 @@ from lib.prompts import prompt_hash as _prompt_hash
 # ---------------------------------------------------------------------------
 
 def get_config() -> dict:
-    load_env_file("images.env")
+    load_env_file("../../seo.env", "images.env")
     return {
         "input_dir":        Path(os.environ.get("INPUT_DIR", "input")),
         "output_dir":       Path(os.environ.get("OUTPUT_DIR", "output/posts")),
