@@ -37,7 +37,7 @@
 
 ---
 
-## Phase 1 — Foundation & Recovery (Months 1–3)
+## Phase 1 — Foundation & Recovery
 Target: 833 → 3,000 visits/month
 
 ### Pipeline: dual-provider API support
@@ -48,7 +48,7 @@ Target: 833 → 3,000 visits/month
 - [ ] Switch provider by changing `API_URL` + `MODEL` + `API_KEY` in `seo.env` only
 - [ ] Tests: mock both response shapes, assert correct extraction per provider
 
-### Emergency fixes (Week 1)
+### Emergency fixes
 - [ ] Remove Lamill Web Systems attribution from About Us sidebar
 - [ ] Delete "Covers:" keyword spam from prius-pwr-mode
 - [ ] Remove Subaru Crosstrek from Toyota PSD vehicle list (factual error)
@@ -56,67 +56,67 @@ Target: 833 → 3,000 visits/month
 - [ ] Update footer © year to dynamic
 - [ ] Fix H1/title mismatch on toyota-hybrid-synergy-drive-problems page
 
-### Title & meta blitz (Week 1–2)
+### Title & meta blitz
 - [ ] Rewrite SEO titles + H1s for all 8 top pages
 - [ ] Paste all 25 prepared meta descriptions into Yoast
 
-### Schema & structure (Week 2–3)
+### Schema & structure
 - [ ] Enable Yoast breadcrumbs + Article schema
 - [ ] Create 5 topic categories; reassign all 46 posts
 - [ ] Add FAQ schema JSON-LD to top 8 posts
 
-### Content expansion (Week 3–4)
+### Content expansion
 - [ ] Expand prius-pwr-mode to 2,800 words (ECO/PWR table, Gen 5 section)
 - [ ] Expand toyota-prius-power-split-device to 3,500 words (Willis equation, 6 operating modes)
 - [ ] Expand prius-0-60 with complete model-year table 2001–2024
 
-### Content velocity begins (Month 2)
+### Content velocity
 - [ ] Set up Amazon Associates affiliate account
 - [ ] Add affiliate links to top 5 existing posts
 - [ ] Launch 12 new posts (3/week) — see topic queue in `seo/topics.json`
 
-### PSD Simulator launch (Month 3)
+### PSD Simulator launch
 - [ ] Complete React plugin build and deploy to WordPress
 - [ ] Write dedicated "PSD Simulator" post
 - [ ] Execute launch outreach (r/prius, r/Toyota, LinkedIn, PriusChat)
 
 ---
 
-## Phase 2 — Content Machine (Months 4–12)
+## Phase 2 — Content Machine
 Target: 3,000 → 10,000 visits/month
 
 ### Toyota hybrid model expansion
-- [ ] RAV4 Hybrid: 12-post cluster (Month 4)
-- [ ] Camry Hybrid + battery deep-dive cluster (Month 5)
-- [ ] Corolla Hybrid + featured snippet targeting (Month 6)
-- [ ] Highlander Hybrid + family comparison content (Month 7)
-- [ ] Prius Prime + EV/PHEV content (Month 8)
+- [ ] RAV4 Hybrid: 12-post cluster
+- [ ] Camry Hybrid + battery deep-dive cluster
+- [ ] Corolla Hybrid + featured snippet targeting
+- [ ] Highlander Hybrid + family comparison content
+- [ ] Prius Prime + EV/PHEV content
 
-### Interactive tools (Month 9)
+### Interactive tools
 - [ ] Hybrid vs Gas Savings Calculator (React plugin)
 - [ ] Hybrid Battery Health Estimator (React plugin)
 - [ ] Toyota Hybrid Model Comparison Tool (React plugin)
 
-### Cross-linking pipeline (Month 5)
+### Cross-linking pipeline
 - [ ] Crawl all published posts and pages; build a keyword → URL index
 - [ ] For each post, identify 5–10 outbound link opportunities to other site content based on semantic overlap
 - [ ] Output: `output/cross-links.md` — per-post table of suggested anchor text + target URL + insertion point (nearest heading)
 - [ ] Optional: WP REST API mode — insert links directly into post body as HTML in WordPress drafts
 
-### Provider comparison — Claude vs OpenAI (Month 5)
+### Provider comparison — Claude vs OpenAI
 - [ ] Run `write_articles` on the same 5 topics twice — once with `claude-sonnet-4-6`, once with `gpt-4.1-mini`
 - [ ] Score both outputs with `review_articles` pipeline (HCU, structure, engagement scores)
 - [ ] Manual review: engineering depth, factual accuracy, word quality
 - [ ] Decision output: preferred provider per use-case (long-form vs short, commercial vs informational)
 - [ ] Set winning provider as default in `seo.env`; keep loser available as override
 
-### SEO checker pipelines (Month 6)
+### SEO checker pipelines
 - [ ] **Per-post SEO checker** — runs automatically after `revise_articles`; scores each post against: title length (50–60 chars), meta description present (145–160 chars), primary keyword in first 100 words, at least 3 internal links, FAQ schema present, word count ≥ target; outputs `seo-score.json` per post
 - [ ] **On-page quality gate** — pipeline refuses to emit final Markdown if post scores below threshold (configurable, default 70/100); logs failures to `output/run_state/seo-failures.jsonl`
 - [ ] **Technical SEO checker** — periodic crawl pipeline: checks all published URLs for broken internal links, missing canonical tags, duplicate titles/metas, missing sitemap entries, robots.txt blocking; outputs prioritised fix list to `output/technical-seo.md`
 - [ ] **Core Web Vitals monitor** — fetches PageSpeed Insights API for top 10 pages monthly; flags any page scoring below 70 on mobile; saves trend data to `output/cwv-history.jsonl`
 
-### Audit & observability pipeline (Month 5)
+### Audit & observability pipeline
 
 The real bottleneck isn't generating more content — it's that 60+ existing pages are "Crawled - currently not indexed". This sub-pipeline observes the live site, measures rejection signals, and feeds priorities back into the content stages so they fix what's broken instead of producing more.
 
@@ -171,11 +171,11 @@ Adds top-level `seo/data/` (date-keyed JSON snapshots per stage) and `seo/lib/{c
 ### Monetization
 - [ ] Apply for Mediavine at 10K sessions/month
 - [ ] Add RockAuto affiliate links to repair cost posts
-- [ ] Launch email newsletter (Month 6)
+- [ ] Launch email newsletter
 
 ---
 
-## Phase 3 — Authority & Scale (Months 13–24)
+## Phase 3 — Authority & Scale
 Target: 10,000 → 100,000 visits/month
 
 ### Backlink strategy
@@ -184,12 +184,12 @@ Target: 10,000 → 100,000 visits/month
 - [ ] Guest posts: 1–2/month on engineering/car sites
 
 ### Content scale
-- [ ] Maintain 3 posts/week (144 posts in months 13–24)
+- [ ] Maintain 3 posts/week
 - [ ] Used car buying guides by model year
 - [ ] DIY repair guides with affiliate tool links
 - [ ] Weekly hybrid car news roundup
 
-### YouTube companion channel (Month 15+)
+### YouTube companion channel
 - [ ] Launch "Hybrid Car Engineering" channel
 - [ ] First video: PSD simulator animated explainer
 - [ ] Target: 3–5 videos/month
