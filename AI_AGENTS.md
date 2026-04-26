@@ -1,7 +1,10 @@
 # AI_AGENTS.md — hybridautopart.com & Domain Portfolio
 
 ## Overview
-This file defines the AI agent roles, responsibilities, and workflows for managing and growing the hybridautopart.com site and the broader domain portfolio owned by Vik Thomas (Lamill Web Systems / lamill.io).
+
+hybridautopart.com is a Toyota Prius and hybrid vehicle technical blog targeting 10K visits/month in 12 months and 100K/month in 24 months. It uses an AI-assisted content pipeline to produce engineering-depth articles at scale (~3 posts/week) while the owner contributes the hands-on engineering voice.
+
+This file defines the AI agent roles, responsibilities, and workflows for managing and growing the site and the broader domain portfolio owned by Vik Thomas (Lamill Web Systems / lamill.io).
 
 ---
 
@@ -13,7 +16,84 @@ This file defines the AI agent roles, responsibilities, and workflows for managi
 
 ---
 
+## Stack
+
+- **Content pipelines:** Python 3, OpenAI-compatible API (currently GPT-4.1-mini), Markdown output
+- **WordPress plugins:** React + Vite, compiled to static JS/CSS, deployed via SFTP
+- **CMS:** WordPress 6.5 on GoDaddy Managed WordPress, Yoast SEO (free)
+- **Deploy:** local build → SFTP/SSH to GoDaddy server
+
+---
+
+## Project structure
+
+```
+hybridautopart.com/
+├── seo/                        # All SEO and content pipeline work
+│   ├── pipelines/
+│   │   ├── generate_article_ideas/   # Keyword expansion → topics.json
+│   │   ├── write_articles/           # topics.json → Markdown drafts
+│   │   ├── review_articles/          # Draft QA: HCU + structure check
+│   │   ├── revise_articles/          # Apply review feedback
+│   │   ├── generate_images/          # Article image generation
+│   │   └── embed_images/             # Embed images into Markdown
+│   ├── plugin-builder/               # Claude → WordPress shortcode plugins
+│   ├── wp_plugins/                   # WordPress plugins (psd-simulator, planetary-gear-explorer)
+│   ├── lib/                          # Shared Python utilities
+│   ├── seo-output/                   # SEO audit results (crawl, CTR, E-E-A-T)
+│   ├── topics.json                   # Active content queue
+│   └── CLAUDE.md                     # Living SEO strategy (source of truth)
+├── docs/                       # PRD, prompts log, strategy docs
+├── AI_AGENTS.md                # This file — agent roles, owner profile, portfolio
+├── plan.md                     # Content funnel strategy
+└── deep-research-report.md     # Niche/competitor research
+```
+
+---
+
+## How to run
+
+```bash
+# Generate article ideas from seed keywords
+cd seo/pipelines/generate_article_ideas && make run
+
+# Write articles from topics queue
+cd seo/pipelines/write_articles && make run
+
+# Review drafted articles
+cd seo/pipelines/review_articles && make run
+
+# Build a WordPress plugin from an idea spec
+cd seo/plugin-builder && make run
+
+# Run SEO audit (Claude Code agent)
+cat seo/SEO_PIPELINE_PROMPT.md | claude --dangerously-skip-permissions --print
+```
+
+Each pipeline reads config from its own `.env` file. Copy `blogs.env.orig` → `blogs.env` and set `API_KEY`.
+
+---
+
+## Key conventions
+
+- Each pipeline has its own `blogs.env` / `ideas.env` / etc. — never share secrets across pipelines
+- Articles are generated as Markdown in `output/posts/{slug}.md` — owner edits before WordPress publish
+- Run state is tracked in `output/run_state/` — delete `run_state/` to re-run all topics
+- `seo/CLAUDE.md` is the living strategy doc — update it when strategy decisions are made
+- Pen name "Vik Thomas" — do not reveal real author identity, do not fabricate off-site signals
+
+---
+
+## Out of scope / don't touch
+
+- WordPress database or server config directly (GoDaddy Managed — SSH access is limited)
+- Publishing to WordPress without owner engineering review pass
+- Creating backlinks artificially or building fake author profiles
+
+---
+
 ## Owner profile
+
 - **Name:** Vik Thomas
 - **Background:** Experienced embedded systems / motor control engineer
 - **Web skills:** WordPress (learning), React/Vite (capable), HTML/CSS (basic)
@@ -66,22 +146,22 @@ Task: [your specific task]
 **Responsibility:** Build and maintain interactive tools for hybridautopart.com
 
 **Primary project:** Toyota Power Split Device Simulator
-- WordPress plugin: `wp-content/plugins/psd-simulator/`
-- React app source: `psd-simulator/react-app/`
+- WordPress plugin: `seo/wp_plugins/psd-simulator/plugin/`
+- React app source: `seo/wp_plugins/psd-simulator/webapp/`
 - Shortcode: `[psd_simulator]`
 - Target page: `/blog-en/toyota-prius-power-split-device/`
 
 **Build workflow:**
 ```bash
-cd psd-simulator/react-app
-npm install
-npm run dev        # dev server localhost:5173
-npm run build      # outputs to ../plugin/dist/
+cd seo/wp_plugins/psd-simulator/webapp
+pnpm install
+pnpm dev          # dev server localhost:5173
+pnpm build        # outputs to ../plugin/dist/
 ```
 
 **Deploy workflow:**
 ```bash
-scp -r plugin/ user@server:/var/www/html/wp-content/plugins/psd-simulator/
+cd seo/wp_plugins/psd-simulator && make deploy
 ```
 
 **Technical constraints:**
@@ -94,12 +174,11 @@ scp -r plugin/ user@server:/var/www/html/wp-content/plugins/psd-simulator/
 **Prompt to use:**
 ```
 You are a React/Vite developer working on the Toyota PSD Simulator WordPress plugin.
-Project is in psd-simulator/ with react-app/ source and plugin/ for WordPress deployment.
+Project is in seo/wp_plugins/psd-simulator/ with webapp/ source and plugin/ for WordPress deployment.
 The simulator mounts to #psd-root via WordPress shortcode [psd_simulator].
 Owner is an embedded engineer who understands the planetary gear math.
-Current state: basic prototype with speed/throttle sliders and canvas animation.
 Task: [your specific task]
-See HANDOFF_PROMPT.md for full technical context.
+See seo/wp_plugins/HANDOFF_PROMPT.md for full technical context.
 ```
 
 ---
@@ -174,10 +253,6 @@ macbookairmusic.com, fixmacbookair.com, iotw00t.com, newiniot.com, thakilists.co
 winmacbook.com, picsonaphone.com, picsonphones.com, cameraphoneadvisor.com,
 appsupermaket.com, picsonmyphone.com, applicationsuperstore.com
 
-**Still to cancel:**
-airgiveaway.com ← KEEP (repurposed)
-iotbastion.com ← KEEP (repurposed)
-
 **Annual cost after cleanup:** ~$270–$300/year (domains only, excluding hosting)
 
 **Prompt to use:**
@@ -228,6 +303,7 @@ Task: [your specific task]
 ---
 
 ## Key resources
+
 - Search Console: https://search.google.com/search-console (property: hybridautopart.com)
 - GoDaddy: https://account.godaddy.com/products
 - Afternic (domain sales): https://www.afternic.com
@@ -236,19 +312,3 @@ Task: [your specific task]
 - PriusChat forums (community outreach): https://priuschat.com
 - r/prius (180K members): https://reddit.com/r/prius
 - r/iotsecurity: https://reddit.com/r/iotsecurity
-
----
-
-## Git repo recommendation
-Create a monorepo to track everything:
-```
-lamill-web/
-├── hybridautopart/
-│   └── plugins/
-│       └── psd-simulator/     ← current plugin
-├── iotbastion/
-├── streamsgalaxy/
-├── domains/
-│   └── portfolio.csv          ← domain tracker
-└── AI_AGENTS.md               ← this file
-```
