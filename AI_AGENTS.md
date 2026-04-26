@@ -36,11 +36,19 @@ hybridautopart.com/
 │   │   ├── review_articles/          # Draft QA: HCU + structure check
 │   │   ├── revise_articles/          # Apply review feedback
 │   │   ├── generate_images/          # Article image generation
-│   │   └── embed_images/             # Embed images into Markdown
+│   │   ├── embed_images/             # Embed images into Markdown
+│   │   ├── crawl_site/               # Sitemap-driven polite crawler
+│   │   ├── audit_technical/          # 18-check technical SEO audit
+│   │   ├── audit_content/            # Thin pages + TF-IDF dup clusters
+│   │   └── analyze_audit_results/    # Renders data/reports/{date}/{summary,todo,diff}.md
 │   ├── plugin-builder/               # Claude → WordPress shortcode plugins
 │   ├── wp_plugins/                   # WordPress plugins (psd-simulator, planetary-gear-explorer)
-│   ├── lib/                          # Shared Python utilities
-│   ├── seo-output/                   # SEO audit results (crawl, CTR, E-E-A-T)
+│   ├── lib/                          # Shared Python utilities (crawl, similarity, audit_state, …)
+│   ├── data/                         # Audit pipeline data store (gitignored)
+│   │   ├── crawls/{date}.json        # Polite per-URL crawl snapshots
+│   │   ├── audits/{technical,content}/{date}.json
+│   │   └── reports/{date}/           # summary.md, todo.md, diff.md, details/*.md
+│   ├── seo-output/                   # One-shot SEO audit results (separate Claude-agent flow)
 │   ├── topics.json                   # Active content queue
 │   └── CLAUDE.md                     # Living SEO strategy (source of truth)
 ├── docs/                       # PRD, prompts log, strategy docs
@@ -66,7 +74,14 @@ cd seo/pipelines/review_articles && make run
 # Build a WordPress plugin from an idea spec
 cd seo/plugin-builder && make run
 
-# Run SEO audit (Claude Code agent)
+# Run the full audit chain (crawl → technical → content → analyze)
+cd seo && make audit-all
+
+# Just regenerate the report markdown from existing audit data
+cd seo && make analyze
+# Reports land in seo/data/reports/{YYYY-MM-DD}/ (summary.md, todo.md, diff.md)
+
+# One-shot SEO audit via separate Claude Code agent (older flow)
 cat seo/SEO_PIPELINE_PROMPT.md | claude --dangerously-skip-permissions --print
 ```
 

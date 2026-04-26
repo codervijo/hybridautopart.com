@@ -188,16 +188,21 @@ Note: title/H1 mismatch and missing H1 live in `audit_technical`, not here — t
 - [ ] Read all latest audit outputs; merge into a prioritized action feed
 - [ ] Output: `data/triage/YYYY-MM-DD.json` + `data/triage/latest.json` pointer
 - [ ] Buckets: `improve` (existing pages flagged thin/duplicate/not-indexed), `consolidate` (near-duplicate cluster merge candidates), `create` (GSC queries with impressions but no matching page), `fix` (technical issues)
-- [ ] Also emits `reports/audit-YYYY-MM-DD.md` (human-readable summary)
+
+**Stage 7 — `analyze_audit_results`**
+- [ ] Read every audit-side `latest.json` (crawl, audit_technical, audit_content, gsc, diffs); render `data/reports/YYYY-MM-DD/`
+- [ ] Output: `summary.md` (200–400 word top-of-funnel), `todo.md` (ranked, banded by impact, sorted by 1/effort within band), `diff.md` (vs previous-existing dated audit; stub if first run), `details/<slug>.md` (full URL list when an item has > 5 examples)
+- [ ] Resilient: missing sibling-stage data is normal — sections render as `_Stub:` (stage not yet producing data) or `_Empty:` (stage ran, no findings). Future `compare_runs` greps `_Stub:` to skip diffing those sections.
+- [ ] Impact 5 = critical (canonical mismatch, 5xx, network errors). 4 = real content rejected (orphans, thin pages, dup clusters, title/H1 mismatch). 3 = metadata/redirects. 1 = cosmetic. Tunable via `CHECK_META` in stage main.py.
 
 **Integrations with existing stages**
 - [ ] `generate_article_ideas`: new env `USE_TRIAGE=true` + `TRIAGE_FILE=../../data/triage/latest.json`. When triage exists, prepend `create` candidates to seed-keyword expansion. Backward-compatible (no triage → existing behavior).
 - [ ] `revise_articles`: new env `CONTENT_AUDIT_FILE=../../data/audits/content/latest.json`. For articles whose slug is in `thin_pages` or any `duplicate_clusters` member, inject extra system-prompt directive ("flagged thin/near-duplicate of X — expand depth, differentiate from sibling") before review feedback.
 
 **Top-level orchestration**
-- [ ] `make audit` — run full chain (crawl → technical+content+gsc in parallel → compare → triage)
-- [ ] `make audit-fast` — skip recrawl, reuse latest crawl snapshot (audits + diff + triage only)
-- [ ] Update `seo/CLAUDE.md` with the new stages and `data/` layout
+- [ ] `make audit-all` — run crawl → audit_technical → audit_content → fetch_gsc → compare_runs → analyze_audit_results. Each stage's failure is non-fatal (`-` prefix in Make); analyze_audit_results runs unconditionally and stubs missing sections.
+- [ ] `make analyze` — run only `analyze_audit_results` against whatever data exists.
+- [ ] Update `seo/CLAUDE.md` with the new stages, `data/` layout, and "Working with todo.md" guidance.
 
 ### Monetization
 - [ ] Apply for Mediavine at 10K sessions/month

@@ -2,10 +2,13 @@
 """audit_technical — pure transform: latest crawl → flagged technical issues."""
 
 import os
+import re
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 from urllib.parse import urlparse
+
+_LANG_PREFIX_RE = re.compile(r"^/([a-z]{2})/")
 
 _SEO_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(_SEO_ROOT) not in sys.path:
@@ -173,17 +176,35 @@ def check_missing_canonical(page: dict) -> list[dict]:
     return []
 
 
+def _lang_prefix(path: str) -> str | None:
+    """Return the 2-letter language directory prefix (e.g. 'fr') or None."""
+    m = _LANG_PREFIX_RE.match(path)
+    return m.group(1) if m else None
+
+
 def check_canonical_mismatch(page: dict) -> list[dict]:
+    """Split canonical mismatches by likely cause:
+    - canonical_cross_language: source and canonical have different language-dir prefixes
+      (likely Polylang/i18n misconfig — confirmed signal-loss).
+    - canonical_different_path: same language, different path (often intentional
+      sub-page consolidation — needs human review).
+    """
     if page["status"] != 200:
         return []
     canonical = page.get("canonical", "").strip()
     if not canonical:
         return []
     final = page.get("final_url", page["url"])
-    if canonical.rstrip("/") != final.rstrip("/"):
-        return [{"url": page["url"], "type": "canonical_mismatch",
-                 "detail": f"canonical={canonical} final_url={final}"}]
-    return []
+    if canonical.rstrip("/") == final.rstrip("/"):
+        return []
+    src_lang = _lang_prefix(urlparse(final).path)
+    can_lang = _lang_prefix(urlparse(canonical).path)
+    if src_lang != can_lang:
+        issue_type = "canonical_cross_language"
+    else:
+        issue_type = "canonical_different_path"
+    return [{"url": page["url"], "type": issue_type,
+             "detail": f"canonical={canonical} final_url={final}"}]
 
 
 def check_cross_language_link(page: dict) -> list[dict]:

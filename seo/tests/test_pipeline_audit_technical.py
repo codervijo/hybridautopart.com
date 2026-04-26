@@ -114,12 +114,22 @@ def test_missing_canonical_flagged():
     assert check_missing_canonical(_page(canonical=""))[0]["type"] == "missing_canonical"
 
 
-def test_canonical_mismatch_flagged():
+def test_canonical_different_path_flagged():
+    # Same language space (no /xx/ prefix on either), different paths
     p = _page(
         final_url="https://hybridautopart.com/blog-en/x/",
         canonical="https://hybridautopart.com/blog-en/wrong/",
     )
-    assert check_canonical_mismatch(p)[0]["type"] == "canonical_mismatch"
+    assert check_canonical_mismatch(p)[0]["type"] == "canonical_different_path"
+
+
+def test_canonical_cross_language_flagged():
+    # Source has no language prefix, canonical points to /fr/... — Polylang misconfig
+    p = _page(
+        final_url="https://hybridautopart.com/about-us/",
+        canonical="https://hybridautopart.com/fr/about-us/",
+    )
+    assert check_canonical_mismatch(p)[0]["type"] == "canonical_cross_language"
 
 
 def test_canonical_trailing_slash_tolerated():

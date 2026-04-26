@@ -10,3 +10,24 @@ PYTHON       := python3
 
 # `deps` and `test` are provided by builder's Makefile.python (uv-based).
 # pytest.ini's `testpaths = tests` handles the test path.
+
+# ─── Audit chain ─────────────────────────────────────────────────────────────
+# `audit-all` is an ordering preference, not a hard dependency. Each stage's
+# failure does NOT abort the chain — analyze_audit_results runs unconditionally
+# at the end and reports on whatever data exists. Stages not yet built are
+# skipped with a notice.
+
+.PHONY: analyze audit-all
+
+analyze:
+	$(MAKE) -C pipelines/analyze_audit_results run
+
+audit-all:
+	-$(MAKE) -C pipelines/crawl_site run
+	-$(MAKE) -C pipelines/audit_technical run
+	-$(MAKE) -C pipelines/audit_content run
+	@if [ -d pipelines/fetch_gsc ]; then $(MAKE) -C pipelines/fetch_gsc run || true; \
+	  else echo "fetch_gsc: not yet built, skipping"; fi
+	@if [ -d pipelines/compare_runs ]; then $(MAKE) -C pipelines/compare_runs run || true; \
+	  else echo "compare_runs: not yet built, skipping"; fi
+	$(MAKE) -C pipelines/analyze_audit_results run

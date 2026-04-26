@@ -145,3 +145,35 @@ The content quality is genuinely strong — the Power Split Device explanation, 
 - Every page is missing metadata Google uses to assess engagement
 
 Fastest path to recovery: credibility restoration (E-E-A-T fixes) + engagement optimization (meta descs + title rewrites). New content is the growth layer on top.
+
+## Reuse policy
+
+This pipeline(seo/pipelines) will be copied to other sites. Until it has been copied
+at least twice, do not introduce abstraction layers, plugin systems,
+or config-driven behavior beyond what the current site actually needs.
+
+Flag site-specific assumptions in code with `# SITE-SPECIFIC:` comments
+so future extraction is easier. Don't try to make them configurable yet.
+
+---
+
+## Pipeline stages
+
+Run order (also driven by `make audit-all` from `seo/`):
+
+1. **`crawl_site`** — fetch sitemap, polite per-URL crawl. Writes `data/crawls/YYYY-MM-DD.json`.
+2. **`audit_technical`** — pure transform. Writes `data/audits/technical/YYYY-MM-DD.json` (18 issue types: 4xx/5xx, redirect chains, missing/duplicate/length-bound title & meta, missing H1, multiple H1, title/H1 mismatch, canonical mismatch, few internal links, many outbound links, images missing alt, cross-language slug links, orphan pages).
+3. **`audit_content`** — TF-IDF + cosine clustering. Writes `data/audits/content/YYYY-MM-DD.json` (thin pages + near-duplicate clusters).
+4. **`fetch_gsc`** — *not yet built*. CSV import v1. Will write `data/gsc/YYYY-MM-DD.json`.
+5. **`compare_runs`** — *not yet built*. Day-over-day diff. Will write `data/diffs/YYYY-MM-DD.json`.
+6. **`analyze_audit_results`** — synthesises all audit outputs into `data/reports/YYYY-MM-DD/{summary.md, todo.md, diff.md, details/*.md}`. Resilient: missing sibling-stage data is normal — those sections render as `_Stub:`.
+
+Every audit-side stage is read-only on prior data and idempotent for the same day.
+
+## Working with todo.md
+
+`data/reports/{date}/todo.md` is the human-facing prioritized task list, regenerated on every `make analyze` run.
+
+- **Generated, never hand-rewritten by Claude.** If priorities or rules need changing, edit `CHECK_META`/`EFFORT_MINUTES` in `seo/pipelines/analyze_audit_results/main.py` and re-run, not the markdown.
+- **Humans check items off** in `todo.md`. Re-running the analyzer overwrites the file, so checkmarks survive only until the next regeneration. (Acceptable: the file is a snapshot, not a tracker.)
+- **Claude logs work to** `data/reports/{date}/work-log.md` (forward-looking — file pattern reserved; the analyzer doesn't create it yet). When Claude completes any todo item in a future session, append a dated entry there with what was changed and the URL(s) affected.
