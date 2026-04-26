@@ -22,6 +22,13 @@
 | P2 | On-page quality gate — block publish if post fails minimum SEO score | Pipeline | [ ] |
 | P2 | Provider comparison — run write_articles with Claude and OpenAI on same topics, diff output quality | Research | [ ] |
 | P2 | Cross-linking pipeline — auto-generate internal link suggestions for every page and post | Pipeline | [ ] |
+| P2 | crawl_site stage — sitemap-driven polite crawler, dated per-URL snapshots in `data/crawls/` | Pipeline | [ ] |
+| P2 | audit_content stage — thin-page detector + near-duplicate clustering (TF-IDF cosine, stdlib) | Pipeline | [ ] |
+| P2 | fetch_gsc stage (CSV) — normalize Search Console exports into `data/gsc/` (incl. Crawled-not-indexed) | Pipeline | [ ] |
+| P2 | compare_runs stage — diff today's audit vs previous, flag regressions (deindex, CTR drop, new thin) | Pipeline | [ ] |
+| P2 | triage stage — synthesize crawl + audits + GSC into prioritized improve/consolidate/create/fix lists | Pipeline | [ ] |
+| P2 | generate_article_ideas reads triage — seed new topics from GSC-impressions-without-page gaps | Pipeline | [ ] |
+| P2 | revise_articles reads content audit — depth/dedupe directives injected for flagged thin/duplicate posts | Pipeline | [ ] |
 | P2 | Mediavine application + email newsletter | Revenue | [ ] |
 | P3 | Backlink strategy — HARO, outreach, guest posts | Growth | [ ] |
 | P3 | Content scale — 144 posts + used car + DIY guides | Content | [ ] |
@@ -108,6 +115,58 @@ Target: 3,000 → 10,000 visits/month
 - [ ] **On-page quality gate** — pipeline refuses to emit final Markdown if post scores below threshold (configurable, default 70/100); logs failures to `output/run_state/seo-failures.jsonl`
 - [ ] **Technical SEO checker** — periodic crawl pipeline: checks all published URLs for broken internal links, missing canonical tags, duplicate titles/metas, missing sitemap entries, robots.txt blocking; outputs prioritised fix list to `output/technical-seo.md`
 - [ ] **Core Web Vitals monitor** — fetches PageSpeed Insights API for top 10 pages monthly; flags any page scoring below 70 on mobile; saves trend data to `output/cwv-history.jsonl`
+
+### Audit & observability pipeline (Month 5)
+
+The real bottleneck isn't generating more content — it's that 60+ existing pages are "Crawled - currently not indexed". This sub-pipeline observes the live site, measures rejection signals, and feeds priorities back into the content stages so they fix what's broken instead of producing more.
+
+Adds top-level `seo/data/` (date-keyed JSON snapshots per stage) and `seo/lib/{crawl,similarity,audit_state}.py`. Adds `beautifulsoup4` to `pyproject.toml`. Each stage is independently runnable via Make; chained by a top-level `make audit` target.
+
+**Stage 1 — `crawl_site`**
+- [ ] Fetch sitemap.xml, parse URL list, respect robots.txt
+- [ ] Polite crawl: 0.5s delay + jitter, `User-Agent: hybridautopart-seo-bot/0.1 (+contact)`
+- [ ] Per-URL capture: status, final_url, redirect chain, title, meta description, canonical, h1[], word_count, internal_links[], outbound_links[], images_without_alt
+- [ ] Output: `data/crawls/YYYY-MM-DD.json` (one snapshot per day, idempotent)
+- [ ] State: `output/run_state/status.jsonl` keyed by URL for resume mid-crawl
+- [ ] New `lib/crawl.py`: RobotsChecker, RateLimiter, fetch_page, parse_page
+
+**Stage 2 — `audit_technical`**
+- [ ] Read latest `data/crawls/*.json`; emit issues per URL
+- [ ] Checks: 4xx/5xx, redirect chains >1 hop, missing/duplicate title, missing/duplicate meta, missing/broken canonical, mixed-language slug references (`/blog/` vs `/blog-en/`)
+- [ ] Output: `data/audits/technical/YYYY-MM-DD.json`
+
+**Stage 3 — `audit_content`**
+- [ ] Read latest crawl; flag thin pages (<800 words, configurable)
+- [ ] TF-IDF + cosine similarity across all pages; cluster pairs ≥0.75 as near-duplicates
+- [ ] Detect title/H1 mismatch, missing H1
+- [ ] Output: `data/audits/content/YYYY-MM-DD.json` (thin_pages, duplicate_clusters, title_h1_mismatch)
+- [ ] New `lib/similarity.py`: TfidfVectorizer, cosine_matrix, cluster_by_threshold (stdlib, no sklearn)
+
+**Stage 4 — `fetch_gsc` (CSV v1)**
+- [ ] Read CSV exports from `data/gsc/inbox/` (queries.csv, pages.csv, coverage.csv)
+- [ ] Normalize into unified JSON: queries with impressions/CTR/position, pages with index status (esp. "Crawled-not-indexed")
+- [ ] Output: `data/gsc/YYYY-MM-DD.json`
+- [ ] V2 (deferred — moved to V2 P3 "Search Console API integration"): swap CSV ingest for OAuth API fetch behind same output schema
+
+**Stage 5 — `compare_runs`**
+- [ ] Read today's + previous-existing-day audit + crawl + GSC
+- [ ] Diff: new issues, resolved issues, regressions (page that was indexed but isn't now, page with impression loss >X%, new thin page)
+- [ ] Output: `data/diffs/YYYY-MM-DD.json`
+
+**Stage 6 — `triage`**
+- [ ] Read all latest audit outputs; merge into a prioritized action feed
+- [ ] Output: `data/triage/YYYY-MM-DD.json` + `data/triage/latest.json` pointer
+- [ ] Buckets: `improve` (existing pages flagged thin/duplicate/not-indexed), `consolidate` (near-duplicate cluster merge candidates), `create` (GSC queries with impressions but no matching page), `fix` (technical issues)
+- [ ] Also emits `reports/audit-YYYY-MM-DD.md` (human-readable summary)
+
+**Integrations with existing stages**
+- [ ] `generate_article_ideas`: new env `USE_TRIAGE=true` + `TRIAGE_FILE=../../data/triage/latest.json`. When triage exists, prepend `create` candidates to seed-keyword expansion. Backward-compatible (no triage → existing behavior).
+- [ ] `revise_articles`: new env `CONTENT_AUDIT_FILE=../../data/audits/content/latest.json`. For articles whose slug is in `thin_pages` or any `duplicate_clusters` member, inject extra system-prompt directive ("flagged thin/near-duplicate of X — expand depth, differentiate from sibling") before review feedback.
+
+**Top-level orchestration**
+- [ ] `make audit` — run full chain (crawl → technical+content+gsc in parallel → compare → triage)
+- [ ] `make audit-fast` — skip recrawl, reuse latest crawl snapshot (audits + diff + triage only)
+- [ ] Update `seo/CLAUDE.md` with the new stages and `data/` layout
 
 ### Monetization
 - [ ] Apply for Mediavine at 10K sessions/month
