@@ -2,7 +2,7 @@ PIPELINE_NAME := write_articles
 
 ifeq ($(shell [ -f /.dockerenv ] && echo yes),yes)
 
-PYTHON     ?= python3
+PYTHON     ?= uv run python3
 ENV_FILE   ?= blogs.env
 INPUT      ?= input/topics.json
 OUTPUT_DIR ?= output

@@ -8,11 +8,5 @@ include $(BUILDER_PATH)/Makefile
 PROJECT_NAME := seo-blog-generator
 PYTHON       := python3
 
-# No external dependencies — override the builder's uv-based deps target.
-.PHONY: deps
-deps:
-	@true
-
-.PHONY: test
-test:
-	$(PYTHON) -m pytest tests/ -v
+# `deps` and `test` are provided by builder's Makefile.python (uv-based).
+# pytest.ini's `testpaths = tests` handles the test path.

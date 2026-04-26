@@ -2,7 +2,7 @@ PIPELINE_NAME := revise_articles
 
 ifeq ($(shell [ -f /.dockerenv ] && echo yes),yes)
 
-PYTHON              ?= python3
+PYTHON              ?= uv run python3
 ENV_FILE            ?= revise.env
 INPUT_ARTICLES_DIR  ?= input/articles
 INPUT_REVIEWS_DIR   ?= input/reviews

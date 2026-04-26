@@ -2,7 +2,7 @@ PIPELINE_NAME := generate_images
 
 ifeq ($(shell [ -f /.dockerenv ] && echo yes),yes)
 
-PYTHON     ?= python3
+PYTHON     ?= uv run python3
 ENV_FILE   ?= images.env
 INPUT_DIR  ?= input
 OUTPUT_DIR ?= output/posts

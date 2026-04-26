@@ -2,7 +2,7 @@ PIPELINE_NAME := generate_article_ideas
 
 ifeq ($(shell [ -f /.dockerenv ] && echo yes),yes)
 
-PYTHON     ?= python3
+PYTHON     ?= uv run python3
 ENV_FILE   ?= ideas.env
 INPUT_DIR  ?= input
 OUTPUT_DIR ?= output
