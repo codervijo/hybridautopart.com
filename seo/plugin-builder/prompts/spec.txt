@@ -1,0 +1,57 @@
+Read the following WordPress plugin idea and produce a detailed technical specification as JSON.
+
+## Idea
+
+$idea
+
+## Required JSON output format
+
+Output ONLY valid JSON — no markdown prose, no explanation, just the JSON object.
+
+```json
+{
+  "plugin_slug": "kebab-case-slug",
+  "plugin_name": "Human Readable Plugin Name",
+  "shortcode": "shortcode_name",
+  "root_id": "pgx-root",
+  "prefix": "PGX",
+  "version": "0.1.0",
+  "description": "One-sentence description for the WordPress plugin header",
+  "tagline": "Marketing tagline shown in readme.txt short description",
+  "tags": ["tag1", "tag2", "tag3", "tag4", "tag5"],
+  "features": [
+    "Feature 1 — what it does",
+    "Feature 2 — what it does"
+  ],
+  "shortcode_attributes": {
+    "attr_name": {"default": "value", "description": "what it controls"}
+  },
+  "api_endpoints": [
+    {
+      "name": "human name",
+      "url_template": "https://api.example.com/endpoint?param={value}",
+      "cors_ok": true,
+      "auth_required": false,
+      "notes": "what data it returns"
+    }
+  ],
+  "ui_sections": [
+    "Input / search section",
+    "Results section",
+    "Detail panels"
+  ],
+  "animation": false,
+  "canvas_needed": false,
+  "hybrid_automotive_angle": "How this tool is relevant to hybrid/EV car parts buyers",
+  "cta_text": "Parts CTA — text to show linking users to hybridautopart.com"
+}
+```
+
+Rules:
+- `plugin_slug` must be lowercase kebab-case, unique, descriptive
+- `prefix` is the PHP constant prefix (uppercase, e.g. VIN, PGX, TRQ)
+- `root_id` is the HTML id of the mount point div (e.g. "vin-root", "pgx-root")
+- `api_endpoints` should only list free, public, CORS-enabled APIs — no auth required
+- `animation` and `canvas_needed` are booleans — true only if the plugin has moving parts
+- `hybrid_automotive_angle` explains the business value for hybridautopart.com SEO
+- Include a `cta_text` that naturally fits after using the tool (e.g. "Looking for OEM parts for your {vehicle}? Shop hybridautopart.com")

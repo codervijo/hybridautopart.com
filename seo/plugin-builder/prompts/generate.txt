@@ -1,0 +1,103 @@
+Using the plugin spec below, generate the complete source code for every file in the plugin.
+
+## Plugin spec
+
+$spec
+
+## Required output format
+
+Output ONLY a valid JSON array — no markdown prose, no explanation before or after.
+
+Each element is an object with two keys:
+- `"path"`: relative file path from the plugin root (e.g. `"webapp/src/App.jsx"`)
+- `"content"`: complete file content as a string
+
+Required files (generate ALL of them):
+
+1. `webapp/package.json`
+2. `webapp/vite.config.js`
+3. `webapp/index.html`
+4. `webapp/src/main.jsx`
+5. `webapp/src/App.jsx`
+6. `webapp/src/App.css`
+7. `plugin/{plugin_slug}.php`
+8. `plugin/readme.txt`
+
+## Detailed requirements for each file
+
+### webapp/package.json
+```json
+{
+  "name": "{plugin_slug}",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.10"
+  }
+}
+```
+
+### webapp/vite.config.js
+Follow the exact pattern from the system prompt. Use `{plugin_slug}.js` as `entryFileNames`.
+
+### webapp/index.html
+Minimal dev harness: `<div id="root"></div>` + `<script type="module" src="/src/main.jsx"></script>`.
+
+### webapp/src/main.jsx
+Mount into `document.getElementById('{root_id}') || document.getElementById('root')`.
+Import `'./App.css'` (NOT `'./index.css'`).
+
+### webapp/src/App.jsx
+- Complete, functional React component — no placeholder code
+- All state in the top-level App component with useState/useRef/useEffect
+- Read initial state from container's dataset (e.g. `document.getElementById('{root_id}')?.dataset`)
+- If the plugin calls external APIs, use fetch() with loading/error states
+- Show a skeleton or spinner while loading
+- Display all results from the spec's `ui_sections`
+- Include the hybrid/automotive CTA at the bottom (styled as a subtle callout box)
+- Handle all error states gracefully with user-friendly messages
+- Mobile responsive — use CSS grid/flex, no hardcoded pixel widths for layout
+- If `canvas_needed` is true, implement the animation using requestAnimationFrame
+
+### webapp/src/App.css
+- All class names prefixed with the plugin slug abbreviation
+- Dark theme using the design system colors from the system prompt
+- Include all styles needed — no external stylesheet imports
+- Mobile breakpoint at 520px
+
+### plugin/{plugin_slug}.php
+- Complete WordPress plugin with correct header (author: hybridautopart, license: GPL-2.0-or-later)
+- Shortcode using `shortcode_atts()` for all attributes in the spec
+- `wp_enqueue_style()` and `wp_enqueue_script()` pointing to `dist/{plugin_slug}.css` and `dist/{plugin_slug}.js`
+- `script_loader_tag` filter to add `type="module"` to the script tag
+- Mount div with all shortcode attributes as `data-*` attributes
+- Sanitize all inputs: `absint()` for numbers, `esc_attr()` for strings, enum validation for constrained values
+
+### plugin/readme.txt
+WordPress.org submission format. Include:
+- Header block with all required fields (Tags, Requires at least: 6.0, Tested up to: 6.7, Stable tag: 0.1.0, Requires PHP: 7.4, License: GPLv2 or later)
+- `== Description ==` section with all features from the spec as a bulleted list
+- `== Installation ==` with 3 standard steps
+- `== Frequently Asked Questions ==` with 3–5 relevant Q&A pairs
+- `== Screenshots ==` section with 3–5 screenshot descriptions
+- `== Changelog ==` with `= 0.1.0 =` listing initial features
+
+## Code quality rules
+
+- All code must be complete and immediately runnable — no `// TODO`, no `...`, no placeholder sections
+- CSS must cover all elements referenced in App.jsx
+- The PHP shortcode must correctly read all attributes defined in `shortcode_attributes`
+- fetch() calls must handle network errors, non-200 responses, and empty results
+- Do NOT import any npm package that isn't in package.json
+- Do NOT use TypeScript — plain JSX only

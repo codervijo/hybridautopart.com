@@ -1,0 +1,229 @@
+/* ─── Root ─────────────────────────────────────────────────────────────────── */
+.psd {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 32px;
+  background: #0f172a;
+  color: #f8fafc;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+/* ─── Header ────────────────────────────────────────────────────────────────── */
+.psd-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  color: #e2e8f0;
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+}
+
+.psd-subtitle {
+  font-size: 0.75rem;
+  text-align: center;
+  color: #475569;
+  margin: 0 0 16px;
+}
+
+/* ─── Canvas ────────────────────────────────────────────────────────────────── */
+.psd-canvas {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  border: 1px solid #1e293b;
+  margin: 0 auto 20px;
+}
+
+/* ─── Controls ──────────────────────────────────────────────────────────────── */
+.psd-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.slider-label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.80rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slider-row input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent, #3b82f6);
+  cursor: pointer;
+}
+
+.slider-val {
+  width: 54px;
+  text-align: right;
+  color: #f1f5f9;
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── SoC bar ───────────────────────────────────────────────────────────────── */
+.psd-soc-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.soc-track {
+  flex: 1;
+  height: 8px;
+  background: #1e293b;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.soc-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.15s ease, background 0.3s ease;
+}
+
+/* ─── Mode badge ────────────────────────────────────────────────────────────── */
+.psd-mode {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1.5px solid #1e293b;
+  border-radius: 10px;
+  padding: 11px 14px;
+  margin-bottom: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.mode-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mode-desc {
+  font-size: 0.80rem;
+  color: #94a3b8;
+  line-height: 1.45;
+  margin: 0;
+  padding-top: 2px;
+}
+
+/* ─── Readouts ──────────────────────────────────────────────────────────────── */
+.psd-readouts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.readout {
+  background: #1e293b;
+  border-radius: 8px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.readout-lbl {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.readout-main {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  font-variant-numeric: tabular-nums;
+}
+
+.readout-unit {
+  font-size: 0.63rem;
+  color: #64748b;
+}
+
+.readout-note {
+  font-size: 0.62rem;
+  color: #64748b;
+  min-height: 11px;
+}
+
+/* ─── Scenario buttons ──────────────────────────────────────────────────────── */
+.psd-scenarios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.psd-scenarios button {
+  flex: 1;
+  min-width: 120px;
+  padding: 8px 10px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  color: #cbd5e1;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  font-family: inherit;
+}
+
+.psd-scenarios button:hover {
+  background: #334155;
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+.psd-scenarios button:active {
+  background: #475569;
+}
+
+/* ─── Footer note ───────────────────────────────────────────────────────────── */
+.psd-footer {
+  font-size: 0.72rem;
+  color: #334155;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ─── Mobile ────────────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .psd {
+    padding: 12px 10px 24px;
+  }
+
+  .psd-readouts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .psd-scenarios button {
+    min-width: 100px;
+  }
+}

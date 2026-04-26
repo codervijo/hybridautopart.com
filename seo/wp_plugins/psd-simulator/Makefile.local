@@ -1,0 +1,7 @@
+export CONTAINER_NAME := psd-sim
+export DOCKER_CMD     := docker
+
+# Uncomment and fill in for `make deploy`:
+# DEPLOY_USER := youruser
+# DEPLOY_HOST := hybridautopart.com
+# DEPLOY_PATH := /var/www/html/wp-content/plugins/psd-simulator

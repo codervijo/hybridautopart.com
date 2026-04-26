@@ -1,0 +1,398 @@
+/* ─── Root ─────────────────────────────────────────────────────────────────── */
+.pgx {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 20px 16px 36px;
+  background: #0f172a;
+  color: #f8fafc;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+.pgx-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  color: #e2e8f0;
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+}
+
+.pgx-sub {
+  font-size: 0.76rem;
+  text-align: center;
+  color: #475569;
+  margin: 0 0 16px;
+}
+
+/* ─── Canvas ────────────────────────────────────────────────────────────────── */
+.pgx-canvas {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  border: 1px solid #1e293b;
+  margin: 0 auto 14px;
+}
+
+/* ─── Presets ───────────────────────────────────────────────────────────────── */
+.pgx-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+
+.pgx-presets button {
+  flex: 1;
+  min-width: 110px;
+  padding: 7px 10px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  color: #cbd5e1;
+  font-size: 0.76rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  font-family: inherit;
+}
+
+.pgx-presets button:hover {
+  background: #334155;
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+/* ─── Sections ──────────────────────────────────────────────────────────────── */
+.pgx-section {
+  background: #1e293b;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
+.pgx-section h3 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #64748b;
+  margin: 0 0 12px;
+}
+
+/* ─── Tooth count ───────────────────────────────────────────────────────────── */
+.pgx-tooth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.teeth-input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.teeth-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.teeth-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.teeth-row input[type="range"] {
+  flex: 1;
+  accent-color: var(--acc, #3b82f6);
+  cursor: pointer;
+}
+
+.teeth-row input[type="number"] {
+  width: 58px;
+  padding: 4px 6px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 5px;
+  color: #f1f5f9;
+  font-size: 0.85rem;
+  font-family: monospace;
+  text-align: right;
+}
+
+.pgx-derived {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  justify-content: center;
+}
+
+.derived-label {
+  font-size: 0.73rem;
+  color: #64748b;
+}
+
+.derived-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.derived-note {
+  font-size: 0.68rem;
+  color: #475569;
+  font-family: monospace;
+}
+
+.pgx-error {
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: #450a0a;
+  border-left: 3px solid #ef4444;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  color: #fca5a5;
+}
+
+.pgx-warn {
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: #422006;
+  border-left: 3px solid #f59e0b;
+  border-radius: 4px;
+  font-size: 0.76rem;
+  color: #fcd34d;
+}
+
+/* ─── Shaft configuration ───────────────────────────────────────────────────── */
+.pgx-shafts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.shaft-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.shaft-label {
+  width: 130px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.shaft-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.shaft-btn {
+  padding: 5px 12px;
+  background: #0f172a;
+  border: 1.5px solid #334155;
+  border-radius: 5px;
+  color: #94a3b8;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.shaft-btn:hover { background: #1e293b; color: #e2e8f0; }
+.shaft-btn.active { background: #0f172a; font-weight: 700; }
+
+.shaft-output {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #f59e0b;
+  letter-spacing: 0.05em;
+}
+
+.pgx-rpm-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 4px;
+  border-top: 1px solid #0f172a;
+}
+
+.pgx-rpm-row label {
+  font-size: 0.78rem;
+  color: #64748b;
+  flex-shrink: 0;
+  width: 80px;
+}
+
+.pgx-rpm-row input[type="range"] {
+  flex: 1;
+  accent-color: #22c55e;
+  cursor: pointer;
+}
+
+.rpm-val {
+  width: 70px;
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Results ───────────────────────────────────────────────────────────────── */
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.result-cell {
+  background: #0f172a;
+  border-radius: 8px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.rc-label {
+  font-size: 0.65rem;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rc-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.rc-note {
+  font-size: 0.64rem;
+  color: #64748b;
+}
+
+/* Speed bar table */
+.speed-table {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.speed-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.speed-shaft {
+  width: 60px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.speed-bar-track {
+  flex: 1;
+  height: 8px;
+  background: #0f172a;
+  border-radius: 99px;
+  overflow: hidden;
+  display: flex;
+}
+
+.speed-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.15s ease;
+  min-width: 2px;
+}
+
+.speed-val {
+  width: 90px;
+  text-align: right;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  font-family: monospace;
+}
+
+/* ─── Formula ───────────────────────────────────────────────────────────────── */
+.pgx-formula code {
+  display: block;
+  font-size: 0.80rem;
+  color: #94a3b8;
+  font-family: monospace;
+  line-height: 1.6;
+}
+
+.formula-base {
+  color: #64748b !important;
+}
+
+.formula-divider {
+  height: 1px;
+  background: #334155;
+  margin: 8px 0;
+}
+
+.formula-derived {
+  color: #c4b5fd !important;
+  font-size: 0.82rem !important;
+}
+
+.formula-config {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: #475569;
+}
+
+.formula-config strong {
+  color: #94a3b8;
+}
+
+/* ─── Real-world examples ───────────────────────────────────────────────────── */
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.example-card {
+  background: #0f172a;
+  border-radius: 7px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ex-fixed {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ex-use {
+  font-size: 0.73rem;
+  color: #64748b;
+  line-height: 1.45;
+}
+
+/* ─── Mobile ────────────────────────────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .pgx-tooth-grid  { grid-template-columns: 1fr; }
+  .result-grid      { grid-template-columns: repeat(2, 1fr); }
+  .examples-grid    { grid-template-columns: 1fr; }
+  .shaft-row        { flex-wrap: wrap; }
+  .shaft-label      { width: 100%; }
+}
