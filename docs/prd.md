@@ -132,8 +132,37 @@ Adds top-level `seo/data/` (date-keyed JSON snapshots per stage) and `seo/lib/{c
 
 **Stage 2 — `audit_technical`**
 - [ ] Read latest `data/crawls/*.json`; emit issues per URL
-- [ ] Checks: 4xx/5xx, redirect chains >1 hop, missing/duplicate title, missing/duplicate meta, missing/broken canonical, mixed-language slug references (`/blog/` vs `/blog-en/`)
 - [ ] Output: `data/audits/technical/YYYY-MM-DD.json`
+
+Per-page checks:
+- [ ] HTTP status: 4xx/5xx and network errors (status==0)
+- [ ] Redirect chain > 1 hop
+- [ ] Missing title
+- [ ] Title too short (<30 chars)
+- [ ] Title too long (>60 chars)
+- [ ] Missing meta description
+- [ ] Thin meta description (<50 chars)
+- [ ] Meta too long (>160 chars)
+- [ ] Missing canonical
+- [ ] Canonical mismatch (canonical != final_url, ignoring trailing slash)
+- [ ] Missing H1
+- [ ] Multiple H1s on one page
+- [ ] Title/H1 mismatch (word overlap < 50%)
+- [ ] Few internal links (< 3)
+- [ ] Many outbound links (> 20)
+- [ ] Images missing alt (count > 0)
+- [ ] Cross-language slug references (SITE-SPECIFIC: `/blog/` vs `/blog-en/`)
+
+Cross-page checks:
+- [ ] Duplicate titles (same title used by multiple URLs)
+- [ ] Duplicate meta descriptions
+- [ ] Orphan pages (no inbound internal link from any other crawled page)
+
+Deferred (out of scope for v1):
+- Title-case violations — too easy to false-positive on brand/acronym terms
+- Trailing-slash URL inconsistency — rare on WP
+- Canonical points to non-2xx target — needs second-pass fetching of canonical URLs
+- FAQ / Article schema presence — needs JSON-LD parsing, fits better as its own stage
 
 **Stage 3 — `audit_content`**
 - [ ] Read latest crawl; flag thin pages (<800 words, configurable)

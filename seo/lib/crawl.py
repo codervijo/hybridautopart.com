@@ -80,7 +80,8 @@ def fetch_sitemap(sitemap_url: str, user_agent: str, timeout: int = 30) -> list[
                 if loc.text:
                     urls.append(loc.text.strip())
 
-    return urls
+    # Yoast emits some URLs (e.g. homepage) in multiple child sitemaps. Dedup, preserve order.
+    return list(dict.fromkeys(urls))
 
 
 class _RedirectTracker(urllib.request.HTTPRedirectHandler):
