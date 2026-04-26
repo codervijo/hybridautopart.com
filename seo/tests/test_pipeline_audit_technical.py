@@ -1,11 +1,4 @@
-import sys
-from pathlib import Path
-
-# audit_technical/main.py is under pipelines/, not on the seo path by default
-_AUDIT_DIR = Path(__file__).resolve().parent.parent / "pipelines" / "audit_technical"
-sys.path.insert(0, str(_AUDIT_DIR))
-
-from main import (  # noqa: E402
+from pipelines.audit_technical.main import (
     audit_pages,
     check_canonical_mismatch,
     check_cross_language_link,

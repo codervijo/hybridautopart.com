@@ -165,11 +165,13 @@ Deferred (out of scope for v1):
 - FAQ / Article schema presence — needs JSON-LD parsing, fits better as its own stage
 
 **Stage 3 — `audit_content`**
-- [ ] Read latest crawl; flag thin pages (<800 words, configurable)
-- [ ] TF-IDF + cosine similarity across all pages; cluster pairs ≥0.75 as near-duplicates
-- [ ] Detect title/H1 mismatch, missing H1
-- [ ] Output: `data/audits/content/YYYY-MM-DD.json` (thin_pages, duplicate_clusters, title_h1_mismatch)
-- [ ] New `lib/similarity.py`: TfidfVectorizer, cosine_matrix, cluster_by_threshold (stdlib, no sklearn)
+- [ ] Read latest crawl; flag thin pages (<800 words, configurable via `THIN_WORDS`)
+- [ ] TF-IDF + cosine similarity across all pages; cluster connected components at sim ≥0.75 (configurable via `DUP_THRESHOLD`)
+- [ ] Output: `data/audits/content/YYYY-MM-DD.json` (thin_pages, duplicate_clusters)
+- [ ] New `lib/similarity.py`: tokenize, tfidf_vectors, cosine, cluster_by_threshold (stdlib, no sklearn)
+- [ ] Crawl record extended with `text` field (visible body text from `<article>`/`<main>`/`<body>`) so audit_content has content to compare. Adds ~700KB to the daily snapshot at current size.
+
+Note: title/H1 mismatch and missing H1 live in `audit_technical`, not here — they're metadata checks, not content-similarity checks.
 
 **Stage 4 — `fetch_gsc` (CSV v1)**
 - [ ] Read CSV exports from `data/gsc/inbox/` (queries.csv, pages.csv, coverage.csv)

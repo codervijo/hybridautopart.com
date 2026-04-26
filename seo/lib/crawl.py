@@ -169,7 +169,8 @@ def parse_page(url: str, html_bytes: bytes, site_host: str) -> dict:
         tag.decompose()
 
     content_root = soup.find("article") or soup.find("main") or soup.body or soup
-    word_count = len(content_root.get_text(separator=" ", strip=True).split())
+    text = content_root.get_text(separator=" ", strip=True)
+    word_count = len(text.split())
 
     internal_links: list[str] = []
     outbound_links: list[str] = []
@@ -192,6 +193,7 @@ def parse_page(url: str, html_bytes: bytes, site_host: str) -> dict:
         "canonical": canonical,
         "h1": h1s,
         "word_count": word_count,
+        "text": text,
         "internal_links": internal_links,
         "outbound_links": outbound_links,
         "images_without_alt": images_without_alt,
@@ -205,6 +207,7 @@ def _empty_parse() -> dict:
         "canonical": "",
         "h1": [],
         "word_count": 0,
+        "text": "",
         "internal_links": [],
         "outbound_links": [],
         "images_without_alt": 0,
