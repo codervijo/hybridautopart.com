@@ -17,10 +17,16 @@ PYTHON       := python3
 # at the end and reports on whatever data exists. Stages not yet built are
 # skipped with a notice.
 
-.PHONY: analyze audit-all
+.PHONY: analyze audit-all guided
 
 analyze:
 	$(MAKE) -C pipelines/analyze_audit_results run
+
+# Interactive AI-driven walkthrough of audit todo items.
+# Pass ITEM=<slug> to limit to one issue type, e.g.:
+#   make guided ITEM=canonical_cross_language
+guided:
+	$(MAKE) -C pipelines/guided_fix run
 
 audit-all:
 	-$(MAKE) -C pipelines/crawl_site run

@@ -1,0 +1,63 @@
+The user just completed a guided fix session for an SEO issue of type `${issue_type}` on
+`${site}`. The full conversation transcript follows.
+
+Your job: distill the *successful path* into a playbook markdown file that future sessions
+will use as primary guidance.
+
+Use this exact structure (replace placeholders, keep the headings):
+
+```markdown
+# Playbook: ${issue_type}
+
+> Captured ${today} from a real fix session on ${site}.
+
+## Symptom
+
+(One short paragraph: what the user sees in HTML / SERP / WP admin that signals the issue.)
+
+## Cause
+
+(One paragraph: the root cause. What system/plugin/setting is producing the wrong output,
+and why a naive fix attempt won't work.)
+
+## Steps (per affected URL)
+
+(Numbered list of exact actions. Imperative voice. Include UI paths in bold. Mention any
+non-obvious clicks or query strings.)
+
+## Verification command
+
+(A specific shell command — usually a curl + grep — that confirms the fix worked. Use
+${site} for the host.)
+
+## Pitfalls
+
+(Bullet list of things that mislead users or look like the fix failed when it didn't,
+extracted from the conversation. Include any places the user got stuck or where reality
+deviated from initial expectation.)
+
+## Bulk variant
+
+(If applicable: how to handle this when many URLs are affected. Skip this section if the
+issue is one-off.)
+```
+
+# Rules for distilling
+
+- Only include steps that **actually worked**. If the user tried something that failed,
+  list it under Pitfalls (e.g. "Optimize SEO Data alone doesn't always work — per-page
+  Save is the reliable fix.").
+- Be concrete and site-specific. If the fix referenced GoDaddy caching or Polylang
+  residue or the Yoast indexable table, say so by name.
+- Don't generalize. This playbook is for THIS site; we'll abstract later.
+- Keep the whole playbook under ~80 lines.
+- Do not include any conversational artifacts (no "the user said", no "we then did").
+  Write as a manual.
+
+Output ONLY the markdown content. No preamble, no commentary.
+
+---
+
+# Conversation transcript
+
+${transcript}

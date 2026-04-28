@@ -167,6 +167,7 @@ Run order (also driven by `make audit-all` from `seo/`):
 4. **`fetch_gsc`** — CSV-only v1. Reads exports from `data/gsc/inbox/`. Writes `data/gsc/YYYY-MM-DD.json` (queries, pages, indexing-status pages).
 5. **`compare_runs`** — *not yet built*. Day-over-day diff. Will write `data/diffs/YYYY-MM-DD.json`.
 6. **`analyze_audit_results`** — synthesises all audit outputs into `data/reports/YYYY-MM-DD/{summary.md, todo.md, diff.md, details/*.md}`. Resilient: missing sibling-stage data is normal — those sections render as `_Stub:`.
+7. **`guided_fix`** — interactive AI-driven walkthrough of pending todo items. Loads playbooks per issue type, walks one item at a time, captures successful fixes as new playbooks. Run via `make guided` (or `make guided ITEM=<slug>`). Reads/writes `data/reports/{today}/work-log.md` for resumability. Cost-tracked, capped per session.
 
 Every audit-side stage is read-only on prior data and idempotent for the same day.
 
@@ -176,4 +177,14 @@ Every audit-side stage is read-only on prior data and idempotent for the same da
 
 - **Generated, never hand-rewritten by Claude.** If priorities or rules need changing, edit `CHECK_META`/`EFFORT_MINUTES` in `seo/pipelines/analyze_audit_results/main.py` and re-run, not the markdown.
 - **Humans check items off** in `todo.md`. Re-running the analyzer overwrites the file, so checkmarks survive only until the next regeneration. (Acceptable: the file is a snapshot, not a tracker.)
-- **Claude logs work to** `data/reports/{date}/work-log.md` (forward-looking — file pattern reserved; the analyzer doesn't create it yet). When Claude completes any todo item in a future session, append a dated entry there with what was changed and the URL(s) affected.
+- **`guided_fix` is the durable tracker.** It writes to `data/reports/{date}/work-log.md` per session: one line per item handled, with status (`done` / `skipped` / `aborted` / `quit` / `error`) and per-item cost. On startup, items already marked `done` in that file are skipped — letting you stop mid-session and resume.
+
+## Working with playbooks
+
+`seo/pipelines/guided_fix/playbooks/<issue_type>.md` are emergent — they accumulate from real fix sessions, not pre-written.
+
+- First time `guided_fix` encounters an issue type, no playbook exists. AI improvises from generic SEO knowledge + audit data.
+- After the user verifies the fix, the script asks AI to distill the conversation into a playbook draft and offers to save.
+- Subsequent sessions on the same issue type load the playbook as primary guidance. AI may deviate when reality diverges (UI changed, etc.) and surface why.
+- When a session finishes on an issue type that already has a playbook, the script asks AI to *merge* old + new (pitfalls are append-only; steps prefer the latest validated path) before saving.
+- Playbooks are git-tracked. Hand-edit them when the AI's distillation captures something stale or imprecise.

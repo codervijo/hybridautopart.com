@@ -1,0 +1,36 @@
+A playbook already exists for this SEO issue type. The user just completed another fix
+session and a new playbook draft has been distilled from that session. Your job is to merge
+the two into a single, better playbook.
+
+# Existing playbook
+
+```markdown
+${existing}
+```
+
+# New playbook draft (from latest session)
+
+```markdown
+${new}
+```
+
+# Merge rules
+
+- **Keep what works.** If the existing playbook's steps were validated again in this
+  session, keep them.
+- **Update what changed.** If the WP/Yoast UI moved or the steps were refined, prefer the
+  newer wording.
+- **Accumulate pitfalls.** Pitfalls are append-only — never drop a pitfall the existing
+  playbook lists, since that captured a real past confusion. Add any new pitfall the
+  latest session uncovered.
+- **De-duplicate.** If the same pitfall is in both, keep one (prefer the clearer phrasing).
+- **Preserve the structure.** Keep all headings (Symptom / Cause / Steps / Verification
+  command / Pitfalls / Bulk variant). Do not introduce new headings.
+- **Update the timestamp comment** at the top to today's date but keep a record of when the
+  playbook was first captured.
+
+Output ONLY the merged markdown content. No commentary, no diff, no explanation.
+
+---
+
+Today's date: ${today}
