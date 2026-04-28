@@ -42,6 +42,18 @@ CHECK_META: dict[str, dict] = {
     "network_error": {"impact": 5, "effort": "30min", "scaling": "per_unit",
                       "title": "Network errors fetching pages",
                       "why": "Pages that won't fetch are unreachable to users and Google."},
+    "gsc_crawled_not_indexed": {"impact": 5, "effort": "2hr", "scaling": "per_unit",
+                                "title": "GSC: Crawled - currently not indexed",
+                                "why": "Google saw the page, decided it wasn't worth indexing. The strongest signal of content rejection in the audit. Each page needs investigation: is it thin, duplicate, orphaned, or wrongly canonicalised?"},
+    "gsc_discovered_not_indexed": {"impact": 4, "effort": "30min", "scaling": "per_unit",
+                                   "title": "GSC: Discovered - currently not indexed",
+                                   "why": "Google knows the URL exists but hasn't crawled it. Often a crawl-budget or internal-linking issue. Add inbound links and submit a fresh sitemap."},
+    "gsc_duplicate_no_canonical": {"impact": 4, "effort": "30min", "scaling": "per_unit",
+                                   "title": "GSC: Duplicate without user-selected canonical",
+                                   "why": "Google found multiple URLs serving the same content and picked its own canonical. Add an explicit canonical tag pointing to the version you want indexed."},
+    "gsc_low_ctr_high_impressions": {"impact": 3, "effort": "30min", "scaling": "per_unit",
+                                     "title": "GSC: High impressions, low CTR (title/meta opportunity)",
+                                     "why": "Page is being shown in SERPs but users aren't clicking. Rewrite title and meta description to better match search intent. Highest-leverage fix per minute."},
 
     # High (4) — confirmed signal-loss
     "canonical_cross_language": {"impact": 4, "effort": "5min", "scaling": "fixed",
@@ -262,9 +274,68 @@ def build_items(inputs: dict) -> list[dict]:
                 "examples": members,
             })
 
+    gsc = inputs.get("gsc")
+    if gsc:
+        # Indexing-status groups: each becomes its own item, mapped to a CHECK_META
+        # slug if known (gsc_crawled_not_indexed, gsc_discovered_not_indexed,
+        # gsc_duplicate_no_canonical), else generic gsc_indexing_<slug>.
+        for status, urls in gsc.get("indexing_by_status", {}).items():
+            urls = sorted(set(urls))
+            if not urls:
+                continue
+            slug, meta = _gsc_status_to_meta(status)
+            items.append({
+                "title": f"{meta['title']} ({len(urls)} pages)" if len(urls) > 1 else meta["title"],
+                "why": meta["why"],
+                "impact": meta["impact"],
+                "effort": aggregate_effort(meta["effort"], meta.get("scaling", "per_unit"), len(urls)),
+                "source": "fetch_gsc",
+                "type_slug": slug,
+                "examples": urls,
+            })
+
+        # Low-CTR-high-impressions: pages getting impressions but losing the click.
+        # Threshold: ≥50 impressions AND CTR <1%. Configurable via env later.
+        low_ctr = [
+            p for p in gsc.get("pages", [])
+            if p.get("impressions", 0) >= 50 and 0 < p.get("ctr", 0) < 0.01
+        ]
+        if low_ctr:
+            meta = CHECK_META["gsc_low_ctr_high_impressions"]
+            urls = [p["url"] for p in sorted(low_ctr, key=lambda x: -x["impressions"])]
+            items.append({
+                "title": f"{meta['title']} ({len(urls)} pages)",
+                "why": meta["why"],
+                "impact": meta["impact"],
+                "effort": aggregate_effort(meta["effort"], meta.get("scaling", "per_unit"), len(urls)),
+                "source": "fetch_gsc",
+                "type_slug": "gsc-low-ctr-high-impressions",
+                "examples": urls,
+            })
+
     items.sort(key=lambda x: (-x["impact"], EFFORT_MINUTES.get(x["effort"], 30)))
     _resolve_slug_collisions(items)
     return items
+
+
+def _gsc_status_to_meta(status: str) -> tuple[str, dict]:
+    """Map a GSC indexing status string to (slug, CHECK_META entry).
+
+    Falls back to a generic slug + Impact 4 entry if the status isn't recognised.
+    """
+    norm = status.lower()
+    if "crawled" in norm and "not indexed" in norm:
+        return "gsc_crawled_not_indexed", CHECK_META["gsc_crawled_not_indexed"]
+    if "discovered" in norm and "not indexed" in norm:
+        return "gsc_discovered_not_indexed", CHECK_META["gsc_discovered_not_indexed"]
+    if "duplicate" in norm:
+        return "gsc_duplicate_no_canonical", CHECK_META["gsc_duplicate_no_canonical"]
+    slug_safe = norm.replace(" - ", "_").replace(" ", "_").replace("-", "_")
+    return f"gsc_indexing_{slug_safe}", {
+        "impact": 4, "effort": "30min", "scaling": "per_unit",
+        "title": f"GSC: {status}",
+        "why": "Pages flagged by Google Search Console with this indexing status.",
+    }
 
 
 def _resolve_slug_collisions(items: list[dict]) -> None:
@@ -334,14 +405,38 @@ def render_summary(inputs: dict, today: str) -> str:
                      f"{s.get('duplicate_cluster_count', 0)} clusters, {s.get('duplicated_pages', 0)} pages")
         parts.append("")
 
-    if inputs["gsc"] is None:
+    gsc = inputs["gsc"]
+    if gsc is None:
         parts.append("## GSC findings\n")
         parts.append("_Stub: fetch_gsc stage not yet producing data. This section will populate "
                      "once data/gsc/{date}.json exists._\n")
-    else:
-        # Schema not yet defined — fetch_gsc not built. When it ships, render real summary here.
+    elif gsc.get("summary", {}).get("queries", 0) == 0 \
+            and gsc.get("summary", {}).get("pages", 0) == 0 \
+            and gsc.get("summary", {}).get("indexing", 0) == 0:
         parts.append("## GSC findings\n")
-        parts.append("_Empty: fetch_gsc stage produced data but renderer not yet wired up._\n")
+        parts.append("_Empty: fetch_gsc ran but the inbox had no recognised CSVs. "
+                     "Drop GSC exports into data/gsc/inbox/ and re-run._\n")
+    else:
+        s = gsc.get("summary", {})
+        parts.append("## GSC findings\n")
+        parts.append(f"- **Queries**: {s.get('queries', 0):,} captured")
+        parts.append(f"- **Pages with traffic**: {s.get('pages', 0)}")
+        parts.append(f"- **Indexing-flagged**: {s.get('indexing', 0)}")
+        if gsc.get("indexing_by_status"):
+            parts.append("- **Indexing status breakdown:**")
+            for status, urls in sorted(gsc["indexing_by_status"].items(),
+                                       key=lambda kv: -len(kv[1])):
+                parts.append(f"  - `{status}`: {len(urls)}")
+        # Top 5 highest-impression pages
+        top_pages = sorted(gsc.get("pages", []),
+                           key=lambda p: -p.get("impressions", 0))[:5]
+        if top_pages:
+            parts.append("- **Top 5 pages by impressions:**")
+            for p in top_pages:
+                parts.append(f"  - {p['url']} — {p['impressions']:,} impr, "
+                             f"{p.get('clicks', 0)} clicks, "
+                             f"CTR {p.get('ctr', 0)*100:.2f}%, pos {p.get('position', 0):.1f}")
+        parts.append("")
 
     if inputs["diffs"] is None:
         parts.append("## Run-to-run regressions\n")
