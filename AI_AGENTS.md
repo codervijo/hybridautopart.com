@@ -100,8 +100,7 @@ All keys live in `seo/seo.env` (gitignored). Copy from `seo/seo.env.orig`:
 
 | Variable | Used by | Format | Notes |
 |---|---|---|---|
-| `API_KEY` | `write_articles`, `review_articles`, `revise_articles`, `generate_article_ideas`, `generate_images` (when `USE_AI=true`) | OpenAI-format key | OpenAI-compatible API (the existing pipelines call `https://api.openai.com/v1/chat/completions` by default; `API_URL` is overridable). Does NOT work for Anthropic. |
-| `ANTHROPIC_API_KEY` | `guided_fix` | `sk-ant-...` | Distinct from `API_KEY` because Claude uses different auth headers and a different endpoint. Future PRD V1 P1 work unifies these behind a `call_llm()` helper. |
+| `API_KEY` | All AI pipelines including `guided_fix` | OpenAI-format key | OpenAI-compatible API (`https://api.openai.com/v1/chat/completions` by default; `API_URL` is overridable to any OpenAI-compatible endpoint). Future PRD V1 P1 work adds Anthropic-aware dispatch behind a `call_llm()` helper. |
 | `IMAGE_API_KEY` | `generate_images` (`run-ai`) | provider-dependent | For DALL·E / similar. Optional. |
 
 If a stage refuses to run citing a missing key, the error message names the exact variable.
