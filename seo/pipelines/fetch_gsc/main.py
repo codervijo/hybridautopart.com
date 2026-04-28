@@ -138,12 +138,15 @@ def parse_pages(headers: list[str], rows: list[list[str]]) -> list[dict]:
     return out
 
 
-def parse_indexing(headers: list[str], rows: list[list[str]], filename: str) -> list[dict]:
-    """Return list of {url, status} where status is derived from filename or column."""
+def parse_indexing(headers: list[str], rows: list[list[str]], filename: str,
+                   status_override: str | None = None) -> list[dict]:
+    """Return list of {url, status}. Status derived from (in priority order):
+    1. status_override (e.g. read from a sibling Metadata.csv)
+    2. a Status/Reason column in the row
+    3. the filename slug as a last-resort fallback
+    """
     iu = _column_index(headers, "url")
     is_ = _column_index(headers, "status", "reason")
-    # When user exports a specific status report (e.g. "crawled-not-indexed.csv"),
-    # the file may not have a status column. Derive from filename slug.
     fname_status = filename.lower().replace("_", "-").replace(".csv", "")
     out: list[dict] = []
     for row in rows:
@@ -156,9 +159,23 @@ def parse_indexing(headers: list[str], rows: list[list[str]], filename: str) -> 
         if is_ is not None and is_ < len(row):
             status = row[is_].strip()
         if not status:
-            status = fname_status
+            status = status_override or fname_status
         out.append({"url": url, "status": status})
     return out
+
+
+def read_metadata_status(metadata_csv: Path) -> str | None:
+    """Read a GSC Coverage Drilldown `Metadata.csv` (Property,Value rows) and return
+    the Status/Reason value, or None if not present.
+    """
+    try:
+        with open(metadata_csv, encoding="utf-8-sig", newline="") as f:
+            for row in csv.reader(f):
+                if len(row) >= 2 and row[0].strip().lower() in ("issue", "status", "reason"):
+                    return row[1].strip()
+    except Exception:
+        return None
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -177,8 +194,34 @@ def read_csv(path: Path) -> tuple[list[str], list[list[str]]]:
     return headers, rows
 
 
+def _extract_zips(inbox: Path) -> None:
+    """Extract any *.zip in inbox into a subdir named after the zip stem.
+
+    Idempotent: skips zips whose extraction subdir already exists.
+    GSC exports always come zipped (Queries.csv, Pages.csv, Countries.csv, ...).
+    """
+    import zipfile
+    for zip_path in sorted(inbox.glob("*.zip")):
+        out_dir = inbox / zip_path.stem
+        if out_dir.exists():
+            log(f"  SKIP zip (already extracted): {zip_path.name}")
+            continue
+        out_dir.mkdir(parents=True)
+        try:
+            with zipfile.ZipFile(zip_path) as z:
+                z.extractall(out_dir)
+        except zipfile.BadZipFile:
+            log(f"  SKIP zip (corrupt): {zip_path.name}")
+            out_dir.rmdir()
+            continue
+        log(f"  EXTRACTED: {zip_path.name} → {out_dir.name}/")
+
+
 def ingest_inbox(inbox: Path) -> dict:
-    """Walk inbox/*.csv, return merged payload of queries/pages/indexing."""
+    """Walk inbox for *.csv (recursively), extract any zips first.
+
+    Returns merged payload of queries/pages/indexing.
+    """
     queries: list[dict] = []
     pages: list[dict] = []
     indexing: list[dict] = []
@@ -187,11 +230,13 @@ def ingest_inbox(inbox: Path) -> dict:
     if not inbox.exists():
         return {"queries": queries, "pages": pages, "indexing": indexing, "files_seen": files_seen}
 
-    for csv_path in sorted(inbox.glob("*.csv")):
+    _extract_zips(inbox)
+
+    for csv_path in sorted(inbox.rglob("*.csv")):
         headers, rows = read_csv(csv_path)
         if not headers:
-            log(f"  SKIP (empty): {csv_path.name}")
-            files_seen.append({"file": csv_path.name, "type": "empty", "rows": 0})
+            log(f"  SKIP (empty): {str(csv_path.relative_to(inbox))}")
+            files_seen.append({"file": str(csv_path.relative_to(inbox)), "type": "empty", "rows": 0})
             continue
         kind = detect_csv_type(headers)
         if kind == "queries":
@@ -203,15 +248,19 @@ def ingest_inbox(inbox: Path) -> dict:
             pages.extend(new)
             count = len(new)
         elif kind == "indexing":
-            new = parse_indexing(headers, rows, csv_path.name)
+            # Coverage Drilldown exports include a sibling Metadata.csv with the
+            # actual status name; prefer that over the filename slug.
+            metadata = csv_path.parent / "Metadata.csv"
+            override = read_metadata_status(metadata) if metadata.exists() else None
+            new = parse_indexing(headers, rows, csv_path.name, status_override=override)
             indexing.extend(new)
             count = len(new)
         else:
-            log(f"  SKIP (unknown headers): {csv_path.name} — {headers[:5]}")
-            files_seen.append({"file": csv_path.name, "type": "unknown", "rows": len(rows)})
+            log(f"  SKIP (unknown headers): {str(csv_path.relative_to(inbox))} — {headers[:5]}")
+            files_seen.append({"file": str(csv_path.relative_to(inbox)), "type": "unknown", "rows": len(rows)})
             continue
-        log(f"  OK [{kind}]: {csv_path.name} — {count} row(s)")
-        files_seen.append({"file": csv_path.name, "type": kind, "rows": count})
+        log(f"  OK [{kind}]: {str(csv_path.relative_to(inbox))} — {count} row(s)")
+        files_seen.append({"file": str(csv_path.relative_to(inbox)), "type": kind, "rows": count})
 
     return {"queries": queries, "pages": pages, "indexing": indexing, "files_seen": files_seen}
 

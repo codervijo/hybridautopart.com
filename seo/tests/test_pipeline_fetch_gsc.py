@@ -153,6 +153,52 @@ def test_ingest_inbox_skips_unknown_headers(tmp_path):
     assert seen["weird.csv"] == "unknown"
 
 
+def test_ingest_inbox_extracts_zip_and_routes(tmp_path):
+    """GSC exports always come zipped — auto-extract and walk recursively."""
+    import zipfile
+    inbox = tmp_path / "inbox"
+    inbox.mkdir()
+    zip_path = inbox / "gsc-export.zip"
+    with zipfile.ZipFile(zip_path, "w") as z:
+        z.writestr("Queries.csv", "Query,Clicks,Impressions,CTR,Position\nprius,3,100,3%,9\n")
+        z.writestr("Pages.csv", "Page,Clicks,Impressions,CTR,Position\nhttps://x/a/,2,50,4%,8\n")
+    out = ingest_inbox(inbox)
+    assert (inbox / "gsc-export").is_dir()  # extraction happened
+    assert len(out["queries"]) == 1
+    assert len(out["pages"]) == 1
+
+
+def test_ingest_indexing_uses_metadata_status_when_present(tmp_path):
+    """Coverage Drilldown exports include Metadata.csv with the real status name."""
+    inbox = tmp_path / "inbox"
+    sub = inbox / "Coverage-Drilldown"
+    sub.mkdir(parents=True)
+    (sub / "Table.csv").write_text(
+        "URL,Last crawled\nhttps://x/a/,2026-04-20\nhttps://x/b/,2026-04-21\n"
+    )
+    (sub / "Metadata.csv").write_text(
+        # Real GSC Coverage Drilldown exports use "Issue" as the property key
+        "Property,Value\nSitemap,All known pages\nIssue,Crawled - currently not indexed\n"
+    )
+    out = ingest_inbox(inbox)
+    assert len(out["indexing"]) == 2
+    assert out["indexing"][0]["status"] == "Crawled - currently not indexed"
+
+
+def test_ingest_inbox_zip_idempotent(tmp_path):
+    """Re-running with the same zip already extracted shouldn't duplicate data."""
+    import zipfile
+    inbox = tmp_path / "inbox"
+    inbox.mkdir()
+    zip_path = inbox / "gsc-export.zip"
+    with zipfile.ZipFile(zip_path, "w") as z:
+        z.writestr("Queries.csv", "Query,Clicks,Impressions,CTR,Position\nprius,3,100,3%,9\n")
+    ingest_inbox(inbox)  # first run extracts
+    out = ingest_inbox(inbox)  # second run sees extracted dir, skips re-extract
+    # Still picks up the CSV via rglob — so query count is 1 from the extracted dir
+    assert len(out["queries"]) == 1
+
+
 # ---------------------------------------------------------------------------
 # read_csv (BOM handling)
 # ---------------------------------------------------------------------------
