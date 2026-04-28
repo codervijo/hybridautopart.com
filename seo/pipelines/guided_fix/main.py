@@ -42,8 +42,11 @@ DEFAULT_OUTPUT_PRICE_PER_MTOK = 1.60
 # avoid coupling. When this needs a third user, move to lib/audit_priorities.
 _IMPACT = {
     "network_error": 5,
+    "gsc_crawled_not_indexed": 5,
     "canonical_cross_language": 4, "thin_page": 4, "duplicate_cluster": 4,
     "orphan_page": 4, "title_h1_mismatch": 4, "missing_title": 4,
+    "gsc_discovered_not_indexed": 4, "gsc_duplicate_no_canonical": 4,
+    "gsc_low_ctr_high_impressions": 3,
     "images_missing_alt": 1,
 }
 
@@ -55,7 +58,21 @@ def _impact_for(issue_type: str) -> int:
         return 5
     if issue_type.startswith("http_4"):
         return 4
+    if issue_type.startswith("gsc_indexing_"):
+        return 4  # generic GSC-flagged status default
     return 3  # default Medium
+
+
+def _gsc_status_to_slug(status: str) -> str:
+    """Map a GSC status string to a stable slug. Matches analyze_audit_results."""
+    norm = status.lower()
+    if "crawled" in norm and "not indexed" in norm:
+        return "gsc_crawled_not_indexed"
+    if "discovered" in norm and "not indexed" in norm:
+        return "gsc_discovered_not_indexed"
+    if "duplicate" in norm:
+        return "gsc_duplicate_no_canonical"
+    return f"gsc_indexing_{norm.replace(' - ', '_').replace(' ', '_').replace('-', '_')}"
 
 
 # ---------------------------------------------------------------------------
@@ -302,6 +319,7 @@ def collect_inputs(data_root: Path) -> dict:
         "crawl":           read_latest(data_root, "crawls"),
         "audit_technical": read_latest(data_root, "audits/technical"),
         "audit_content":   read_latest(data_root, "audits/content"),
+        "gsc":             read_latest(data_root, "gsc"),
     }
 
 
@@ -347,6 +365,37 @@ def build_items(inputs: dict) -> list[dict]:
                 "urls":   c["members"],
                 "source": "audit_content",
                 "impact": _impact_for("duplicate_cluster"),
+            })
+
+    gsc = inputs.get("gsc")
+    if gsc:
+        for status, urls in gsc.get("indexing_by_status", {}).items():
+            urls = sorted(set(urls))
+            if not urls:
+                continue
+            slug = _gsc_status_to_slug(status)
+            items.append({
+                "slug":   slug,
+                "type":   slug,
+                "title":  f"GSC: {status} ({len(urls)} pages)",
+                "urls":   urls,
+                "source": "fetch_gsc",
+                "impact": _impact_for(slug),
+            })
+        # Low-CTR-high-impressions pages — title/meta opportunities backed by GSC
+        low_ctr = [
+            p for p in gsc.get("pages", [])
+            if p.get("impressions", 0) >= 50 and 0 < p.get("ctr", 0) < 0.01
+        ]
+        if low_ctr:
+            urls = [p["url"] for p in sorted(low_ctr, key=lambda x: -x["impressions"])]
+            items.append({
+                "slug":   "gsc_low_ctr_high_impressions",
+                "type":   "gsc_low_ctr_high_impressions",
+                "title":  f"GSC: high impressions, low CTR ({len(urls)} pages)",
+                "urls":   urls,
+                "source": "fetch_gsc",
+                "impact": _impact_for("gsc_low_ctr_high_impressions"),
             })
 
     items.sort(key=lambda x: (-x["impact"], x["slug"]))
