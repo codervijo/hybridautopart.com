@@ -26,8 +26,7 @@ audit-all:
 	-$(MAKE) -C pipelines/crawl_site run
 	-$(MAKE) -C pipelines/audit_technical run
 	-$(MAKE) -C pipelines/audit_content run
-	@if [ -d pipelines/fetch_gsc ]; then $(MAKE) -C pipelines/fetch_gsc run || true; \
-	  else echo "fetch_gsc: not yet built, skipping"; fi
+	-$(MAKE) -C pipelines/fetch_gsc run
 	@if [ -d pipelines/compare_runs ]; then $(MAKE) -C pipelines/compare_runs run || true; \
 	  else echo "compare_runs: not yet built, skipping"; fi
 	$(MAKE) -C pipelines/analyze_audit_results run

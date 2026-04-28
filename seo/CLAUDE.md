@@ -162,9 +162,9 @@ so future extraction is easier. Don't try to make them configurable yet.
 Run order (also driven by `make audit-all` from `seo/`):
 
 1. **`crawl_site`** — fetch sitemap, polite per-URL crawl. Writes `data/crawls/YYYY-MM-DD.json`.
-2. **`audit_technical`** — pure transform. Writes `data/audits/technical/YYYY-MM-DD.json` (18 issue types: 4xx/5xx, redirect chains, missing/duplicate/length-bound title & meta, missing H1, multiple H1, title/H1 mismatch, canonical mismatch, few internal links, many outbound links, images missing alt, cross-language slug links, orphan pages).
+2. **`audit_technical`** — pure transform. Writes `data/audits/technical/YYYY-MM-DD.json` (18+ issue types: 4xx/5xx, redirect chains, missing/duplicate/length-bound title & meta, missing/multiple H1, title/H1 mismatch, canonical cross-language vs different-path, few internal links, many outbound links, images missing alt, cross-language slug links, orphan pages).
 3. **`audit_content`** — TF-IDF + cosine clustering. Writes `data/audits/content/YYYY-MM-DD.json` (thin pages + near-duplicate clusters).
-4. **`fetch_gsc`** — *not yet built*. CSV import v1. Will write `data/gsc/YYYY-MM-DD.json`.
+4. **`fetch_gsc`** — CSV-only v1. Reads exports from `data/gsc/inbox/`. Writes `data/gsc/YYYY-MM-DD.json` (queries, pages, indexing-status pages).
 5. **`compare_runs`** — *not yet built*. Day-over-day diff. Will write `data/diffs/YYYY-MM-DD.json`.
 6. **`analyze_audit_results`** — synthesises all audit outputs into `data/reports/YYYY-MM-DD/{summary.md, todo.md, diff.md, details/*.md}`. Resilient: missing sibling-stage data is normal — those sections render as `_Stub:`.
 
