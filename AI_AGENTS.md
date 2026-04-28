@@ -81,11 +81,30 @@ cd seo && make audit-all
 cd seo && make analyze
 # Reports land in seo/data/reports/{YYYY-MM-DD}/ (summary.md, todo.md, diff.md)
 
+# Run a guided AI walkthrough for one todo item
+cd seo && ITEM=<issue_slug> make guided
+# (Picks one item, walks you through fixing it conversationally. Requires ANTHROPIC_API_KEY.)
+
 # One-shot SEO audit via separate Claude Code agent (older flow)
 cat seo/SEO_PIPELINE_PROMPT.md | claude --dangerously-skip-permissions --print
 ```
 
-Each pipeline reads config from its own `.env` file. Copy `blogs.env.orig` → `blogs.env` and set `API_KEY`.
+Each pipeline reads config from its own `.env` file (e.g. `blogs.env`, `review.env`).
+Shared secrets live in `seo/seo.env` — every pipeline `.env` cascades from there.
+
+---
+
+## Required environment variables
+
+All keys live in `seo/seo.env` (gitignored). Copy from `seo/seo.env.orig`:
+
+| Variable | Used by | Format | Notes |
+|---|---|---|---|
+| `API_KEY` | `write_articles`, `review_articles`, `revise_articles`, `generate_article_ideas`, `generate_images` (when `USE_AI=true`) | OpenAI-format key | OpenAI-compatible API (the existing pipelines call `https://api.openai.com/v1/chat/completions` by default; `API_URL` is overridable). Does NOT work for Anthropic. |
+| `ANTHROPIC_API_KEY` | `guided_fix` | `sk-ant-...` | Distinct from `API_KEY` because Claude uses different auth headers and a different endpoint. Future PRD V1 P1 work unifies these behind a `call_llm()` helper. |
+| `IMAGE_API_KEY` | `generate_images` (`run-ai`) | provider-dependent | For DALL·E / similar. Optional. |
+
+If a stage refuses to run citing a missing key, the error message names the exact variable.
 
 ---
 
