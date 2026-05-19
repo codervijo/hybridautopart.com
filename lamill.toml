@@ -1,0 +1,16 @@
+schema = "lamill-toml-v1"
+
+[deploy]
+platform = "hostgator"
+production_branch = "main"
+custom_domains = [
+    "hybridautopart.com",
+]
+
+[hosting]
+cpanel_user = "foundervijo"
+cpanel_url = "https://gator4216.hostgator.com:2083"
+ftp_host = "gator4216.hostgator.com"
+ftp_user = "foundervijo"
+ftp_port = 21
+public_html_path = "/home3/foundervijo/public_html/hybridautopart.com/"
