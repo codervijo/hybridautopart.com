@@ -1,6 +1,6 @@
-# lamill.toml — per-site config consumed by portfolio (lamill) and rankmill.
+# lamill.toml — per-site config consumed by lamill (portfolio/ops) and rankmill (content/audits).
 # [content] = stable identity, authored by hand. [todo] = volatile work state.
-# See docs/prd.md "The [content] and [todo] blocks" for the distinction.
+# rankmill output lives in sites/<domain>/rankmill-output/, not here.
 
 schema = "lamill-toml-v1"
 
@@ -24,9 +24,9 @@ public_html_path = "/home3/foundervijo/public_html/hybridautopart.com/"
 
 [content]
 # Declarative content identity for this site.
-# Authored by the human; consumed by rankmill to generate drafts.
-# Leave fields empty until you have a deliberate answer.
-site_type = ""            # e.g. "legal-compliance", "tool", "directory", "blog"
+# Authored by the human; consumed by rankmill to generate drafts and run audits.
+# Leave fields empty until you have a deliberate answer. Empty is better than wrong.
+site_type = ""            # e.g. "legal-compliance", "tool", "directory", "blog", "b2c"
 primary_keyword = ""      # the one phrase this site should rank for
 secondary_keywords = []   # 3-8 supporting phrases
 icp = ""                  # ideal customer profile — one sentence, specific role + context
@@ -34,14 +34,3 @@ urgency_trigger = ""      # what makes the reader act now (deadline, penalty, pa
 penalty = ""              # cost of inaction, in their terms (dollars, risk, time)
 tone = ""                 # e.g. "direct, technical, no fluff" or "warm, plainspoken"
 law = ""                  # statute or regulation if applicable, else empty
-
-[content.progress]
-# State written by rankmill after generation. Do not edit by hand.
-last_generated = ""
-pillar = false
-faq = false
-blog_calendar = false
-meta = false
-linking_map = false
-pages_homepage = false
-pages_how_it_works = false
