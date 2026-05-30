@@ -1,3 +1,7 @@
+# lamill.toml — per-site config consumed by portfolio (lamill) and rankmill.
+# [content] = stable identity, authored by hand. [todo] = volatile work state.
+# See docs/prd.md "The [content] and [todo] blocks" for the distinction.
+
 schema = "lamill-toml-v1"
 
 [deploy]
@@ -7,6 +11,9 @@ custom_domains = [
     "hybridautopart.com",
 ]
 
+[stack]
+framework = "wordpress"
+
 [hosting]
 cpanel_user = "foundervijo"
 cpanel_url = "https://gator4216.hostgator.com:2083"
@@ -14,3 +21,27 @@ ftp_host = "gator4216.hostgator.com"
 ftp_user = "foundervijo"
 ftp_port = 21
 public_html_path = "/home3/foundervijo/public_html/hybridautopart.com/"
+
+[content]
+# Declarative content identity for this site.
+# Authored by the human; consumed by rankmill to generate drafts.
+# Leave fields empty until you have a deliberate answer.
+site_type = ""            # e.g. "legal-compliance", "tool", "directory", "blog"
+primary_keyword = ""      # the one phrase this site should rank for
+secondary_keywords = []   # 3-8 supporting phrases
+icp = ""                  # ideal customer profile — one sentence, specific role + context
+urgency_trigger = ""      # what makes the reader act now (deadline, penalty, pain)
+penalty = ""              # cost of inaction, in their terms (dollars, risk, time)
+tone = ""                 # e.g. "direct, technical, no fluff" or "warm, plainspoken"
+law = ""                  # statute or regulation if applicable, else empty
+
+[content.progress]
+# State written by rankmill after generation. Do not edit by hand.
+last_generated = ""
+pillar = false
+faq = false
+blog_calendar = false
+meta = false
+linking_map = false
+pages_homepage = false
+pages_how_it_works = false
